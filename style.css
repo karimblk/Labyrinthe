@@ -1,5 +1,5 @@
 body{
-	margin: auto;
+	margin: 0px;
 	padding: 0px;
 	background-color: #4D4D4D;	
 	font-family: Comic Sans MS, Comic Sans, cursive;
@@ -17,8 +17,6 @@ body{
 #canvagamescreen
 {
 	border: 2px solid red;
-	height: 600px;
-	width: 900px;
 }
 #bigTitle{
 	
@@ -46,6 +44,8 @@ body{
 }
 #gamescreen{
 	display: none;
+  margin-top: 100px;
+  text-align: center;
 }
 #login{
 	display: none;
@@ -55,7 +55,10 @@ input{
 	padding: 8px;
 
 }
-
+.test{
+  padding: 2px;
+  background-color: blue;
+}
 
 
 
