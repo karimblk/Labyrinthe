@@ -170,7 +170,13 @@ function drawCanva(tableauCaseDevant)
 	
 }
 
-
+// Fonction pour traiter la requete Xhr faite lors de la connexion
+function traitementXhr(response)
+{
+	if(response!="1"){
+		switchToLogin();
+	}
+}
 
 
 //Fonction qui switch vers l'enregistrement
@@ -189,10 +195,12 @@ function switchToRegister()
 function switchToLogin()
 {
 	var acceuil=document.getElementById("accueil");
+	var screenGame=document.getElementById("gamescreen");
+	var login=document.getElementById("login");
 	acceuil.style.display='none';
 	login.style.display='block';
-
-	var tabTest = [0,0,0,0,0,0,0,0,2,2,0,2,2,2,2,2,0];
+	screenGame.style.display='none';
+	var tabTest = [0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1];
 	drawCanva(tabTest);
 }
 
@@ -203,9 +211,32 @@ function switchToScreenGame()
 	var screenGame=document.getElementById("gamescreen");
 	var login=document.getElementById("login");
 	var register=document.getElementById("register");
-	screenGame.style.display='block';
-	login.style.display='none';
-	register.style.display='none';
+	// screenGame.style.display='block';
+	// login.style.display='none';
+	// register.style.display='none';
+
+	// Requete xhr pour valider la connexion et donner une position au joueur
+	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange= function() {
+ 		if (xhr.readyState == 4) {
+   			if (xhr.status == 200) {
+      			// traitementXhr(xhr.responseText);
+      			console.log(xhr.responseText);
+      			if(xhr.responseText!="1"){
+					switchToLogin();
+				}
+				else{
+					screenGame.style.display='block';
+					login.style.display='none';
+					register.style.display='none';
+				}
+    		}
+  		}
+	};
+	xhr.open("POST","traitement.php",true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send();
 }
 
 function init()

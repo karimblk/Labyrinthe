@@ -16,7 +16,8 @@ body{
 }
 #canvagamescreen
 {
-	border: 2px solid red;
+	border: 4px solid #03e9f4;
+  border-radius: 10px;
 }
 #bigTitle{
 	
