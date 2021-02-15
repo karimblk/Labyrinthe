@@ -170,13 +170,6 @@ function drawCanva(tableauCaseDevant)
 	
 }
 
-// Fonction pour traiter la requete Xhr faite lors de la connexion
-function traitementXhr(response)
-{
-	if(response!="1"){
-		switchToLogin();
-	}
-}
 
 
 //Fonction qui switch vers l'enregistrement
@@ -211,9 +204,6 @@ function switchToScreenGame()
 	var screenGame=document.getElementById("gamescreen");
 	var login=document.getElementById("login");
 	var register=document.getElementById("register");
-	// screenGame.style.display='block';
-	// login.style.display='none';
-	// register.style.display='none';
 
 	// Requete xhr pour valider la connexion et donner une position au joueur
 	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
@@ -230,11 +220,50 @@ function switchToScreenGame()
 					screenGame.style.display='block';
 					login.style.display='none';
 					register.style.display='none';
+					var img1= document.getElementById("imgDevant");
+					img1.onclick= RequeteXhrMovement(1);
+
+					var img2= document.getElementById("imgArriere");
+					img2.onclick= RequeteXhrMovement(2);
+
+					var img3= document.getElementById("imgBougerGauche");
+					img3.onclick= RequeteXhrMovement(3);
+
+					var img4= document.getElementById("imgBougerDroite");
+					img4.onclick= RequeteXhrMovement(4);
+
+					var img5= document.getElementById("imgGauche");
+					img5.onclick= RequeteXhrMovement(5);
+
+					var img6= document.getElementById("imgDroite");
+					img6.onclick= RequeteXhrMovement(6);
 				}
     		}
   		}
 	};
 	xhr.open("POST","traitement.php",true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send();
+}
+
+function RequeteXhrMovement(valeur){
+	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange= function() {
+ 		if (xhr.readyState == 4) {
+   			if (xhr.status == 200) {
+      			// traitementXhr(xhr.responseText);
+      			console.log(xhr.responseText);
+      			if(xhr.responseText!="1"){
+					switchToLogin();
+				}
+				else{
+
+				}
+    		}
+  		}
+	};
+	xhr.open("GET","traitement.php",true);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send();
 }
@@ -251,6 +280,8 @@ function init()
 
 	var elt3=document.getElementById("btnLogin");
 	elt3.onclick=switchToLogin;
+
+	
 }
 
 
