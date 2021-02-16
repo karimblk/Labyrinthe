@@ -204,6 +204,11 @@ function switchToScreenGame()
 	var screenGame=document.getElementById("gamescreen");
 	var login=document.getElementById("login");
 	var register=document.getElementById("register");
+	// Rendre clickable les images de mouvement
+	var imagesDeMouvement= document.getElementsByTagName("img");
+	for (var i = 0; i < imagesDeMouvement.length; i++) {
+		imagesDeMouvement[i].onclick=RequeteXhrForMoving;
+	}
 
 	// Requete xhr pour valider la connexion et donner une position au joueur
 	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
@@ -220,50 +225,46 @@ function switchToScreenGame()
 					screenGame.style.display='block';
 					login.style.display='none';
 					register.style.display='none';
-					var img1= document.getElementById("imgDevant");
-					img1.onclick= RequeteXhrMovement(1);
-
-					var img2= document.getElementById("imgArriere");
-					img2.onclick= RequeteXhrMovement(2);
-
-					var img3= document.getElementById("imgBougerGauche");
-					img3.onclick= RequeteXhrMovement(3);
-
-					var img4= document.getElementById("imgBougerDroite");
-					img4.onclick= RequeteXhrMovement(4);
-
-					var img5= document.getElementById("imgGauche");
-					img5.onclick= RequeteXhrMovement(5);
-
-					var img6= document.getElementById("imgDroite");
-					img6.onclick= RequeteXhrMovement(6);
 				}
     		}
   		}
 	};
-	xhr.open("POST","traitement.php",true);
+	xhr.open("POST","login.php",true);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send();
 }
 
-function RequeteXhrMovement(valeur){
-	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
+function RequeteXhrForMoving()
+{
+	var valeur;
+	switch(this)
+	{
+		case document.getElementById("imgDevant"): valeur=0;
+		break; 
+		case document.getElementById("imgArriere"): valeur=1;
+		break; 
+		case document.getElementById("imgGauche"): valeur=2;
+		break; 
+		case document.getElementById("imgDroite"): valeur=3;
+		break; 
+		case document.getElementById("imgTournerGauche"): valeur=4;
+		break; 
+		case document.getElementById("imgTournerDroite"): valeur=5;
+		break; 
+		default: valeur=-1;
+	}
+	var param="valeur="+encodeURIComponent(valeur);
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange= function() {
  		if (xhr.readyState == 4) {
    			if (xhr.status == 200) {
-      			// traitementXhr(xhr.responseText);
-      			console.log(xhr.responseText);
-      			if(xhr.responseText!="1"){
-					switchToLogin();
-				}
-				else{
-
-				}
+   				console.log(valeur);
+      			var reponse = xhr.responseText;
+				console.log(reponse);
     		}
   		}
 	};
-	xhr.open("GET","traitement.php",true);
+	xhr.open("GET","moving.php?"+param,true);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send();
 }
@@ -280,6 +281,8 @@ function init()
 
 	var elt3=document.getElementById("btnLogin");
 	elt3.onclick=switchToLogin;
+
+	
 
 	
 }

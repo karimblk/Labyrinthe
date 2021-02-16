@@ -1,7 +1,5 @@
 <?php
- session_start();
-
-
+session_start();
 
 $laby = array(
 # Etage 0
@@ -63,14 +61,58 @@ $laby = array(
   )
 );
 
-// 	//On met le joueur a la position initial (1,1)
-	$_SESSION['positionX']=1;
-	$_SESSION['positionY']=1;
-	//SUD = 1; nord = 2; Ouest = 3; Est = 4
-	$_SESSION['orientation']=1;
-// 	//Recuperer les infos du formulaire de connexion
-// 	$pseudo = $_GET["pseudo"];
-// 	$y = $_GET["password"];
-	//On testera ici si le login est correct
-	echo "1";
+$btnAppuye = $_GET["valeur"];
+$chaineARetouner="";
+
+if($btnAppuye==0)// Button vert le haut
+{
+	$_SESSION['positionY']--;
+	$x = $_SESSION['positionX'];
+	$y = $_SESSION['positionY'];
+	if($_SESSION['orientation']==1) // SUD
+	{
+		//Ligne de A à G
+		if($y+3<=15) 
+		{
+			$flagX = $x+3;
+			for ($i=0; $i < 7 ; $i++) 
+			{ 
+				if($flagX>=0 && $flagX <= 15)
+				{
+					$chaineARetouner.= $laby[0][$y+3][$flagX]." ";
+				}
+				else{
+					$chaineARetouner.= "0 ";
+				}			
+				$flagX--;
+			}
+		}
+		else{
+			$chaineARetouner.="0 0 0 0 0 0 0";
+		}
+		//Ligne de H à L
+		
+	}
+	
+
+}
+else if($btnAppuye==1) // Button vers le bas
+{
+
+}else if($btnAppuye==2) // Button vers la gauche
+{
+
+}else if($btnAppuye==3) // Button vers la droite
+{
+
+}else if($btnAppuye==4) // Button pour tourner vers la gauche
+{
+
+}else if($btnAppuye==5) // Button pour tourner vers la droite
+{
+
+}
+
+
+
 ?>
