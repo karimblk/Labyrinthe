@@ -70,7 +70,8 @@ session_start();
         <img src="ImgMove/turnleft.png" id="imgTournerGauche"/>
         <img src="ImgMove/turnright.png" id="imgTournerDroite"/>
       </div> 
-      <div id="divDuchat" class="col-md-4 col-sm-4 col-xs-4 col-lg-4">     
+      <div id="divDuchat" class="col-md-4 col-sm-4 col-xs-4 col-lg-4">  
+        <h3>LIVE CHAT</h3>   
       </div>   
     </div>
     

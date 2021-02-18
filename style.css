@@ -19,14 +19,14 @@ body{
   margin-right: 0px;
 }
 #divDuchat{
-  background-color: #D1F6F9;
+  background-color: #FFFFFF;
   height: 432px;
   width: 200px;
 }
 #gameScreenAndChat{
   border: 4px solid #FFFFFF;
-  border-radius: 10px;
-  background-color: #B32001;
+  border-radius: 15px;
+  background-color: #D1F6F9;
 }
 #scrennGameWithButton{
   text-align: center;
@@ -58,7 +58,6 @@ body{
 #gamescreen{
 	display: none;
   margin-top: 100px;
-  background-color: #B32001;
 }
 #login{
 	display: none;
@@ -73,10 +72,9 @@ input{
   background-color: blue;
 }
 
-img{
+h3{
   text-align: center;
 }
-
 
 
 

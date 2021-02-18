@@ -147,7 +147,7 @@ function drawCanva(tableauCaseDevant)
 	for (var i = 0; i < 5; i++) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 		
 	}
@@ -155,7 +155,7 @@ function drawCanva(tableauCaseDevant)
 	for (var i = 10; i >= 5; i--) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 				
 	}
@@ -163,7 +163,7 @@ function drawCanva(tableauCaseDevant)
 	for (var i = 11; i < 14; i++) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 				
 	}
@@ -171,7 +171,7 @@ function drawCanva(tableauCaseDevant)
 	for (var i = 17; i >= 14; i--) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 				
 	}
@@ -179,25 +179,25 @@ function drawCanva(tableauCaseDevant)
 	for (var i = 18; i < 20; i++) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 				
 	}
 	for (var i = 22; i >= 20; i--) {
 		if(tableauCaseDevant[indexOfCase(i)]!=0)
 		{
-			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]-1],0,0,1155,665);
 		}
 				
 	}
 	// On affiche P et Q
 	if(tableauCaseDevant[indexOfCase(23)]!=0)
 		{
-			ctx.drawImage(tab[23][tableauCaseDevant[indexOfCase(23)]],0,0,1155,665);
+			ctx.drawImage(tab[23][tableauCaseDevant[indexOfCase(23)]-1],0,0,1155,665);
 		}
 	if(tableauCaseDevant[indexOfCase(24)]!=0)
 		{
-			ctx.drawImage(tab[24][tableauCaseDevant[indexOfCase(24)]],0,0,1155,665);
+			ctx.drawImage(tab[24][tableauCaseDevant[indexOfCase(24)]-1],0,0,1155,665);
 		}
 	
 	
