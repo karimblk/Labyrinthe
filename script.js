@@ -14,6 +14,8 @@ var tab = new Array(25);
 tab=initArray(tab);
 var fontImage;
 
+var tabRecuParMovingPhp;
+
 function indexOfCase(num)
 {
 	switch(num)
@@ -139,34 +141,66 @@ function drawCanva(tableauCaseDevant)
 {
 	var canva=document.getElementById('canvagamescreen');
 	var ctx=canva.getContext('2d');
-	ctx.drawImage(fontImage,0,0,1280,800);
+	ctx.drawImage(fontImage,0,0,1155,665);
 	
 	// On affiche de A à C
 	for (var i = 0; i < 5; i++) {
-		ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+		
 	}
 	// On affiche de G à E et en dernier D
 	for (var i = 10; i >= 5; i--) {
-				ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+				
 	}
 	// On affiche de H à I
 	for (var i = 11; i < 14; i++) {
-				ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+				
 	}
 	// On affiche de L à K et en dernier J
 	for (var i = 17; i >= 14; i--) {
-				ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+				
 	}
 	// On affiche de M puis O puis N
 	for (var i = 18; i < 20; i++) {
-				ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+				
 	}
 	for (var i = 22; i >= 20; i--) {
-				ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		if(tableauCaseDevant[indexOfCase(i)]!=0)
+		{
+			ctx.drawImage(tab[i][tableauCaseDevant[indexOfCase(i)]],0,0,1155,665);
+		}
+				
 	}
 	// On affiche P et Q
-	ctx.drawImage(tab[23][tableauCaseDevant[indexOfCase(23)]],0,0,1155,665);
-	ctx.drawImage(tab[24][tableauCaseDevant[indexOfCase(24)]],0,0,1155,665);
+	if(tableauCaseDevant[indexOfCase(23)]!=0)
+		{
+			ctx.drawImage(tab[23][tableauCaseDevant[indexOfCase(23)]],0,0,1155,665);
+		}
+	if(tableauCaseDevant[indexOfCase(24)]!=0)
+		{
+			ctx.drawImage(tab[24][tableauCaseDevant[indexOfCase(24)]],0,0,1155,665);
+		}
+	
+	
 	
 }
 
@@ -193,8 +227,23 @@ function switchToLogin()
 	acceuil.style.display='none';
 	login.style.display='block';
 	screenGame.style.display='none';
-	var tabTest = [0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1];
-	drawCanva(tabTest);
+
+
+	var param="valeur="+encodeURIComponent(-1);
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange= function() {
+ 		if (xhr.readyState == 4) {
+   			if (xhr.status == 200) {;
+      			var reponse = xhr.responseText;
+      			console.log(reponse);
+				var responseInArray= reponse.split(" ");
+				drawCanva(responseInArray);
+    		}
+  		}
+	};
+	xhr.open("GET","moving.php?"+param,true);
+	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	xhr.send();
 }
 
 
@@ -260,7 +309,13 @@ function RequeteXhrForMoving()
    			if (xhr.status == 200) {
    				console.log(valeur);
       			var reponse = xhr.responseText;
-				console.log(reponse);
+      			console.log(reponse);
+      			if(reponse!=-1)
+      			{
+      				tabRecuParMovingPhp= reponse.split(" ");
+      			}
+				drawCanva(tabRecuParMovingPhp);
+				
     		}
   		}
 	};

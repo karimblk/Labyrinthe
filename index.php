@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -55,14 +58,22 @@
     		<a href="#" id="btnRegister">Register</a>
   		</form>
 	</div>
-	<div id="gamescreen">
-		<canvas class="mx-auto" id="canvagamescreen" height="400" width="640"></canvas><br>
-    <img src="ImgMove/movefwd.png" id="imgDevant" />
-    <img src="ImgMove/moveback.png" id="imgArriere"/>
-    <img src="ImgMove/moveleft.png" id="imgGauche"/>
-    <img src="ImgMove/moveright.png" id="imgDroite"/>
-    <img src="ImgMove/turnleft.png" id="imgTournerGauche"/>
-    <img src="ImgMove/turnright.png" id="imgTournerDroite"/>
+	<div id="gamescreen" class="container">
+    <div class="row" id="gameScreenAndChat">
+      <div id="scrennGameWithButton" class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+        <canvas id="canvagamescreen" height="400" width="640"></canvas>
+        <br>
+        <img src="ImgMove/movefwd.png" id="imgDevant" />
+        <img src="ImgMove/moveback.png" id="imgArriere"/>
+        <img src="ImgMove/moveleft.png" id="imgGauche"/>
+        <img src="ImgMove/moveright.png" id="imgDroite"/>
+        <img src="ImgMove/turnleft.png" id="imgTournerGauche"/>
+        <img src="ImgMove/turnright.png" id="imgTournerDroite"/>
+      </div> 
+      <div id="divDuchat" class="col-md-4 col-sm-4 col-xs-4 col-lg-4">     
+      </div>   
+    </div>
+    
 	</div>
 	
 	<script src="script.js" defer></script>
