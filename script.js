@@ -426,14 +426,16 @@ function loadImage(nom)
 		{
 			barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
 			paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
+			barre.style.width="0";
+			barreDeCharment.style.display="none";
 			if(cptForbarreChargement==151)
 			{
-				console.log("cptForbarreChargement");
 				barre.style.width="0";
 				barreDeCharment.style.display="none";
 				XhrRequestToMovingPhp(-1);
 				loadInProgress=true;
-
+				barre.style.width="0";
+				barreDeCharment.style.display="none";
 			}	
 		};
 		fontImage.src="Images/"+nom+".BACK.png";	
