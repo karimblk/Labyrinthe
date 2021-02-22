@@ -109,9 +109,9 @@ session_start();
             <h6>About</h6>
             <p>This app was developed by : </p>
 			<ul class="footer-links">
-              <li><a href="ImgMove/karim.png">Karim Ben-Loukar</a></li>
+              <li><a href="ImgMove/karim.PNG">Karim Ben-Loukar</a></li>
               <li><a href="https://media.discordapp.net/attachments/778278174454579254/808599662969880576/image0.jpg?width=1176&height=882">Taj Eddine Temsamani</a></li>
-			  <li><a href="ImgMove/souly.png">Soulyman El Kadaoui</a></li>
+			  <li><a href="ImgMove/souly.PNG">Soulyman El Kadaoui</a></li>
             </ul>
           </div>
         </div>
