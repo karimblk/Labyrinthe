@@ -19,45 +19,53 @@ session_start();
   			<a class="btn btn-primary btn-lg blueBtn" href="#" id="btnLogin" role="button">Login</a>
 		</div>
 	</div>
-	<div id="register" class="login-box">
-		<h2>Register</h2>
-  		<form>
-    		<div class="user-box">
-      			<input type="text" name="" required="">
-      			<label>Username</label>
-    		</div>
-    		<div class="user-box">
-      			<input type="text" name="" required="">
-      			<label>City</label>
-    		</div>
-    		<div class="user-box">
-      			<input type="password" name="" required="">
-      			<label>Password</label>
-    		</div>
-    		<a href="#">
-      		<span></span>
-      		<span></span>
-      		<span></span>
-      		<span></span>
-      			Submit
-    		</a>
-  		</form>
-	</div>
-	<div id="login"  class="login-box">
-		<h2>Sign in to play</h2>
-  		<form>
-    		<div class="user-box">
-      			<input type="text" name="" required="">
-      			<label>Username</label>
-    		</div>
-    		<div class="user-box">
-      			<input type="password" name="" required="">
-      			<label>Password</label>
-    		</div>
-    		<a href="#" id="btnScreenGame">Submit</a>
-    		<a href="#" id="btnRegister">Register</a>
-  		</form>
-	</div>
+	
+<div id="register" class="login-box">
+    <h2>Register</h2>
+      <form>
+        <div class="user-box">
+            <input type="text" name="" required="" id="UsernameR" />
+            <label>Username</label>
+        </div>
+        <div class="user-box">
+            <input type="text" name="" required=""  id="email" />
+            <label>Email</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="" required="" id="passwordR" />
+            <label>Password</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="" required="" id="Comfirm_psw" />
+            <label>Comfirme password</label>
+        </div>
+        <div id="erreurR"   class="user-box"></div>
+        <a href="#" id="confirme">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+            Submit
+        </a>
+      </form>
+  </div>
+
+  <div id="login"  class="login-box">
+    <h2>Sign in to play</h2>
+      <form>
+        <div class="user-box">
+            <input type="text" name="" required="" id="Username" />
+            <label>Username</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="" required="" id ="password" />
+            <label>Password</label>
+        </div>
+        <a href="#" id="btnScreenGame">Submit</a>
+        <a href="#" id="btnRegister">Register</a>
+        <div id="erreurL"  class="user-box"></div>
+      </form>
+  </div>
 	<div id="gamescreen" class="container">
       <div id="scrennGameWithButton">
         <canvas id="canvagamescreen" height="400" width="640"></canvas>

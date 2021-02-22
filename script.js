@@ -249,6 +249,19 @@ function RequeteXhrForMoving()
 	
 }
 
+////Fonction qui traite les reponse recu par login.php
+function responseTraitementAuthentication(xmlResponse)
+{
+	//Recuperer les elements de l'objet XML
+	var response= xmlResponse.getElementsByTagName("response")[0].firstChild.nodeValue;
+	var connected= xmlResponse.getElementsByTagName("bool")[0].firstChild.nodeValue;
+
+	// Traitement des ces donnees
+	erreurR.innerHTML=response;
+	erreurL.innerHTML=response;
+	
+}
+
 //Fonction qui switch vers l'ecran de jeu
 function switchToScreenGame()
 {
@@ -262,29 +275,46 @@ function switchToScreenGame()
 		imagesDeMouvement[i].onclick=RequeteXhrForMoving;
 	}
 
-	// Requete xhr pour valider la connexion et donner une position au joueur
-	var param="pseudo="+encodeURIComponent("karim")+"&password="+encodeURIComponent("blk");
-	var xhr=new XMLHttpRequest();
-	xhr.onreadystatechange= function() {
- 		if (xhr.readyState == 4) {
-   			if (xhr.status == 200) {
-      			// traitementXhr(xhr.responseText);
-      			console.log(xhr.responseText);
-      			if(xhr.responseText!="1"){
-					switchToLogin();
-				}
-				else{
-					screenGame.style.display='flex';
-					login.style.display='none';
-					register.style.display='none';
-					XhrRequestToMovingPhp("-1");
-				}
-    		}
-  		}
-	};
-	xhr.open("POST","login.php",true);
-	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	xhr.send();
+	let reg = /^([A-z&1-9]{5})\w+/;
+	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
+	let regEmail = /^([A-Za-z0-9-.])+@([A-Za-z0-9-.])+.([A-Za-z]{2,4})$/;
+	var erreurL=document.getElementById("erreurL");//for login regex
+	erreurL.style.color ='red';
+
+	var username = document.getElementById('Username').value;
+    var password = document.getElementById('password').value;
+    if(reg.test(username) && regpassword.test(password)){
+    			var xhr = new XMLHttpRequest();
+
+            	var param = "pseudo="+encodeURIComponent(username)+"&password="+encodeURIComponent(password);
+            	xhr.onreadystatechange = function() {
+                	if (xhr.readyState == 4 && xhr.status == 200) {   
+                		ech = xhr.responseXML;
+                		responseTraitementAuthentication(ech);
+                		var connected= ech.getElementsByTagName("bool")[0].firstChild.nodeValue; 
+                   		if (connected=="true") {
+							screenGame.style.display='flex';
+							login.style.display='none';
+							register.style.display='none';
+							XhrRequestToMovingPhp("-1"); 
+                   		}              		
+               		 }
+            	}
+
+	            xhr.open("POST","login.php");
+	            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
+	            xhr.send(param);	
+    }
+    else if(!reg.test(username) && !regpassword.test(password)){
+        erreurL.innerHTML="Erreur dans le pseudo et le mot de passe";
+    }
+    else if (!regpassword.test(password)){
+        erreurL.innerHTML="mot de passe incorrecte";
+    }
+    else{
+        erreurL.innerHTML="pseudo incorrecte";
+    }
+
 }
 
 //Fonction pour charger les images d'un theme recu en parametre
@@ -352,7 +382,6 @@ function loadImage(nom)
 					barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
 					paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
 					cptForbarreChargement++;
-					console.log(cptForbarreChargement);
 				};
 				tab[i][j].src="Images/"+nom+"."+caseLetter+"F"+j+".png";
 			}
@@ -368,7 +397,6 @@ function loadImage(nom)
 					barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
 					paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
 					cptForbarreChargement++;
-					console.log(cptForbarreChargement);
 				};
 				tab[i][j].src="Images/"+nom+"."+caseLetter+"S"+j+".png";
 			}
@@ -385,9 +413,7 @@ function loadImage(nom)
 					{
 						barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
 						paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
-						cptForbarreChargement++;
-						console.log(cptForbarreChargement);
-						
+						cptForbarreChargement++;						
 					};
 					tab[i][l].src="Images/"+nom+"."+caseLetter+"S"+l+".png";
 				}	
@@ -413,6 +439,61 @@ function loadImage(nom)
 		fontImage.src="Images/"+nom+".BACK.png";	
 }
 
+//Fonction pour ajouter un membre a la base de donnees
+function registreMember()
+{
+	var erreurR=document.getElementById("erreurR"); //for register regex
+	erreurR.style.color ='red';
+
+	let reg = /^([A-z&1-9]{5})\w+/;
+	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
+	let regEmail = /^([A-Za-z0-9-.])+@([A-Za-z0-9-.])+.([A-Za-z]{2,4})$/;
+
+	var username = document.getElementById('UsernameR').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('passwordR').value;
+    var Comfirm_psw = document.getElementById('Comfirm_psw').value;
+    if(reg.test(username) && regpassword.test(password) && regEmail.test(email)){
+    		if (password==Comfirm_psw) {
+    			var xhr = new XMLHttpRequest();
+
+            	var param = "pseudo="+encodeURIComponent(username)+"&password="+encodeURIComponent(password)+"&email="+encodeURIComponent(email);
+            	xhr.onreadystatechange = function() {
+                	if (xhr.readyState == 4 && xhr.status == 200) {    
+                   		ech = xhr.responseXML;
+                   		responseTraitementAuthentication(ech);
+                   		var connected= ech.getElementsByTagName("bool")[0].firstChild.nodeValue;
+                   		if (connected =="true") {
+                   			register.style.display='none';
+                   			login.style.display='block'; 
+                   		}
+               		 }
+            	}
+	            xhr.open("POST","login.php");
+	            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); //Comment savoir que l'on doit mettre ceci ?
+	            xhr.send(param);
+    			}
+    			else if (password!=Comfirm_psw){
+        			erreurR.innerHTML="veillez saisir une meme version de mot de passe";
+    			}
+    }
+	
+    else if(!reg.test(username) && !regpassword.test(password)){
+
+        erreurR.innerHTML="Erreur dans le pseudo et le mot de passe";
+    }
+    else if (!regpassword.test(password)){
+        erreurR.innerHTML="Erreur dans le mot de passe. min 8 lettres avec majuscules,caractere speciaux et chiffres";
+    }
+    else if (!regEmail.test(email)){
+        erreurR.innerHTML="Erreur dans l email";
+    }
+    
+    else{
+        erreurR.innerHTML="Erreur dans le pseudo";
+    }
+}
+
 
 function init()
 {
@@ -427,5 +508,8 @@ function init()
 
 	var elt3=document.getElementById("btnLogin");
 	elt3.onclick=switchToLogin;	
+
+	var confirme=document.getElementById("confirme");//register
+	confirme.onclick=registreMember;
 }
 window.onload=init;
