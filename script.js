@@ -162,15 +162,17 @@ function responseTraitement(xmlResponse)
 	var TableauDeVue= xmlResponse.getElementsByTagName("TableauDeVue")[0].firstChild.nodeValue;
 
 	// Traitement des ces donnees
+	var position=document.getElementById("spanPosition");
+	position.innerHTML="("+ positionX+ ";"+positionY+")";
 	var direction =document.getElementById("imgBoussole");
 	switch(orientation){
-		case 1: direction.src="ImgMove/compass-S.png";
+		case "1": direction.src="ImgMove/compass-S.png";
 		break;
-		case 2: direction.src="ImgMove/compass-N.png";
+		case "2": direction.src="ImgMove/compass-N.png";
 		break;
-		case 3: direction.src="ImgMove/compass-W.png";
+		case "3": direction.src="ImgMove/compass-W.png";
 		break;
-		case 4: direction.src="ImgMove/compass-E.png";
+		case "4": direction.src="ImgMove/compass-E.png";
 		break;
 	}
 	

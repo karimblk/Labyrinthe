@@ -97,23 +97,35 @@ h3{
   font-weight: bold;
 }
 .ImgMove{
-  width: 10%;
+  width: 30%;
+}
+#imgBoussole{
+  width: 50%;
+}
+.ligne{
+  display: flex;
+  width: 100%;
+  height: auto;
+  flex-direction: row;
 }
 
 #divContainsButtonOfMovement{
   width: auto;
+  flex: auto;
+  text-align: right;
   height: 100%;
 }
 #infoPlayer{
   width: auto;
+  flex: auto;
   height: 100%;
 }
 #divForBoussole{
   width: auto;
+  text-align: right;
+  flex: auto;
   height: 100%;
 }
-
-
 
 
 

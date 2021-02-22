@@ -69,8 +69,10 @@ session_start();
 		</div>
 		<div class="ligne">
 			<div id="infoPlayer">
+				<h6>Info of player</h6>
+				<span id="spanPosition"></span>
 			</div>
-			<div id="divContainsButtonOfMovement">
+			<div id="divContainsButtonOfMovement" >
 				<img src="ImgMove/movefwd.png" id="imgDevant" class="ImgMove" />
 				<img src="ImgMove/moveback.png" id="imgArriere" class="ImgMove"/><br>
 				<img src="ImgMove/moveleft.png" id="imgGauche" class="ImgMove"/>
@@ -79,12 +81,9 @@ session_start();
 				<img src="ImgMove/turnright.png" id="imgTournerDroite" class="ImgMove"/>
 			</div>
 			<div id="divForBoussole">
-				<img id="imgBoussole">
+				<img id="imgBoussole" src="ImgMove/compass-S.png"/>
 	  		</div>
-
 		</div>
-        
-
       </div> 
 	  
       <div id="divDuchat">  
