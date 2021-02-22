@@ -59,23 +59,68 @@ session_start();
   		</form>
 	</div>
 	<div id="gamescreen" class="container">
-    <div class="row" id="gameScreenAndChat">
-      <div id="scrennGameWithButton" class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+      <div id="scrennGameWithButton">
         <canvas id="canvagamescreen" height="400" width="640"></canvas>
         <br>
-        <img src="ImgMove/movefwd.png" id="imgDevant" />
-        <img src="ImgMove/moveback.png" id="imgArriere"/>
-        <img src="ImgMove/moveleft.png" id="imgGauche"/>
-        <img src="ImgMove/moveright.png" id="imgDroite"/>
-        <img src="ImgMove/turnleft.png" id="imgTournerGauche"/>
-        <img src="ImgMove/turnright.png" id="imgTournerDroite"/>
+        <div id="barreChargement">
+			<div id="processLoading">
+				<p id="paraForLoadBarre"></p>
+			</div>
+		</div>
+		<div class="ligne">
+			<div id="infoPlayer">
+			</div>
+			<div id="divContainsButtonOfMovement">
+				<img src="ImgMove/movefwd.png" id="imgDevant" class="ImgMove" />
+				<img src="ImgMove/moveback.png" id="imgArriere" class="ImgMove"/><br>
+				<img src="ImgMove/moveleft.png" id="imgGauche" class="ImgMove"/>
+				<img src="ImgMove/moveright.png" id="imgDroite" class="ImgMove"/><br>
+				<img src="ImgMove/turnleft.png" id="imgTournerGauche" class="ImgMove"/>
+				<img src="ImgMove/turnright.png" id="imgTournerDroite" class="ImgMove"/>
+			</div>
+			<div id="divForBoussole">
+				<img id="imgBoussole">
+	  		</div>
+
+		</div>
+        
+
       </div> 
-      <div id="divDuchat" class="col-md-4 col-sm-4 col-xs-4 col-lg-4">  
-        <h3>LIVE CHAT</h3>   
-      </div>   
-    </div>
+	  
+      <div id="divDuchat">  
+        <h3>LIVE CHAT</h3> 
+		</div>
     
 	</div>
+
+	<!-- FOOTER -->
+	  <!-- Site footer -->
+	  <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 center" >
+            <h6>About</h6>
+            <p>This app was developed by : </p>
+			<ul class="footer-links">
+              <li><a href="ImgMove/karim.png">Karim Ben-Loukar</a></li>
+              <li><a href="https://media.discordapp.net/attachments/778278174454579254/808599662969880576/image0.jpg?width=1176&height=882">Taj Eddine Temsamani</a></li>
+			  <li><a href="ImgMove/souly.png">Soulyman El Kadaoui</a></li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyright &copy; 2021 All Rights Reserved by 
+         <a href="#">The Three Man Band (3MB)</a>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+	</footer>
 	
 	<script src="script.js" defer></script>
 </body>
