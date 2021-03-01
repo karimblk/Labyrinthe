@@ -15,17 +15,17 @@
 	$chaineXML .= '<login>';
 
 	// J'en profite ici pour mettre la fonction qui va generer le XML
-	function genererXML($res,$bool)
+	function genererXML($code,$mess)
 	{
 		global $chaineXML;
 
-		$chaineXML .= '<response>';
-		$chaineXML .= $res;
-		$chaineXML .= '</response>';
+		$chaineXML .= '<codeErreur>';
+		$chaineXML .= $code;
+		$chaineXML .= '</codeErreur>';
 
-		$chaineXML .= '<bool>';
-		$chaineXML .= $bool;
-		$chaineXML .= '</bool>';
+		$chaineXML .= '<message>';
+		$chaineXML .= $mess;
+		$chaineXML .= '</message>';
 
 		$chaineXML .= '</login>';
 	}
@@ -51,7 +51,7 @@
 	        $error=1;
 	    }
 
-		$db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2028;user=ajax2028;password=rougleu64rifoi');
+		$db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2033;user=ajax2033;password=deboi71koigrou');
 
 	    if($error==0)
 	    {
@@ -59,7 +59,7 @@
 			$stmt->execute([$email]); 
 			$users = $stmt->fetch();
 			if ($users) {
-			    genererXML("email deja utiliser","false");
+			    genererXML("2002","Email déjà utiliser");
 			} 
 			else {
 			    $stmt = $db->prepare("SELECT * FROM players WHERE login =?");
@@ -67,11 +67,11 @@
 				$users = $stmt->fetch();
 				if($users)
 				{
-					genererXML("pseudo deja utiliser","false");
+					genererXML("2003","Pseudo déjà utiliser");
 				}
 				else
 				{
-					genererXML("données reçu!","true");
+					genererXML("2000","Ok");
 					$stm=$db->prepare("INSERT INTO players (login,passwd,email) VALUES (?,?,?)");
 	        		$stm->execute(array(
 	           		$_POST["pseudo"],
@@ -96,28 +96,26 @@
 	    if(!preg_match($regpassword,$_POST['password'])){
 	        $error=1;
 	    }
-		$db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2028;user=ajax2028;password=rougleu64rifoi');
+		$db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2033;user=ajax2033;password=deboi71koigrou');
 	    if($error == 0)
 	    {
-			$stmt = $db->prepare("SELECT * FROM players WHERE passwd='".hash("sha256",$_POST["password"],false)."'");
-			$stmt->execute(); 
+			$stmt = $db->prepare("SELECT * FROM players WHERE login =?");
+			$stmt->execute([$user]); 
 			$users = $stmt->fetch();
-			if ($users) {
-			    
-			    $stmt = $db->prepare("SELECT * FROM players WHERE login =?");
-				$stmt->execute([$user]); 
+			if ($users){
+
+				$stmt = $db->prepare("SELECT * FROM players WHERE passwd='".hash("sha256",$_POST["password"],false)."'");
+				$stmt->execute(); 
 				$users = $stmt->fetch();
 				if($users)
 				{
-					genererXML('bonjour '.$user.'',"true");
+					genererXML("2001", $user);
+				}else {
+					genererXML("2005","Mot de passe incorrect");
 				}
-				else
-				{
-					genererXML("pseudo incorrecte","false");
 
-				}
-			} else {
-				genererXML("mot de passe incorrecte","false");
+			}else{
+				genererXML("2004","Compte innexistant");
 			}
 	    }
 	    header("Content-Type: text/xml");

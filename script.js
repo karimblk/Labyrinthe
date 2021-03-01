@@ -8,6 +8,7 @@ var cptForbarreChargement=1;
 var responseXHR;
 var loadInProgress=true; // Pour la barre de chargement qui sera utiliser au chagement de theme
 var theme="BLUE";
+var startScript=true;
 
 /**********************
  * FONCTIONS
@@ -214,6 +215,7 @@ function XhrRequestToMovingPhp(valeur)
 //Fonction qui switch vers le login
 function switchToLogin()
 {
+	startScript=false;
 	var acceuil=document.getElementById("accueil");
 	var screenGame=document.getElementById("gamescreen");
 	var login=document.getElementById("login");
@@ -253,21 +255,48 @@ function RequeteXhrForMoving()
 function responseTraitementAuthentication(xmlResponse)
 {
 	//Recuperer les elements de l'objet XML
-	var response= xmlResponse.getElementsByTagName("response")[0].firstChild.nodeValue;
-	var connected= xmlResponse.getElementsByTagName("bool")[0].firstChild.nodeValue;
+	var codeRecu= xmlResponse.getElementsByTagName("codeErreur")[0].firstChild.nodeValue;
+	var message= xmlResponse.getElementsByTagName("message")[0].firstChild.nodeValue;
+
+	var screenGame=document.getElementById("gamescreen");
+	var login=document.getElementById("login");
+	var register=document.getElementById("register");
 
 	// Traitement des ces donnees
-	erreurR.innerHTML=response;
-	erreurL.innerHTML=response;
+	if(codeRecu=="2000")
+	{
+		register.style.display='none';
+        login.style.display='block'; 
+	}
+	else if(codeRecu=="2001")
+	{
+		screenGame.style.display='flex';
+		login.style.display='none';
+		register.style.display='none';
+		XhrRequestToMovingPhp("-1"); 
+	}
+	else if(codeRecu=="2002")
+	{
+		document.getElementById("registermail").innerHTML=message;
+	}
+	else if(codeRecu=="2003")
+	{
+		document.getElementById("registerusername").innerHTML=message;
+	}
+	else if(codeRecu=="2004")
+	{
+		document.getElementById("logusername").innerHTML=message;
+	}
+	else if(codeRecu=="2005")
+	{
+		document.getElementById("logpass").innerHTML=message;
+	}
 	
 }
 
 //Fonction qui switch vers l'ecran de jeu
 function switchToScreenGame()
 {
-	var screenGame=document.getElementById("gamescreen");
-	var login=document.getElementById("login");
-	var register=document.getElementById("register");
 
 	// Rendre clickable les images de mouvement
 	var imagesDeMouvement= document.getElementsByTagName("img");
@@ -275,14 +304,25 @@ function switchToScreenGame()
 		imagesDeMouvement[i].onclick=RequeteXhrForMoving;
 	}
 
+	//Faire disparaitre les messages d'erreurs
+	var todosSpan= document.getElementsByClassName("messageError");
+	for (let index = 0; index < todosSpan.length; index++) {
+		todosSpan[index].innerHTML="";	
+	}
+
 	let reg = /^([A-z&1-9]{5})\w+/;
 	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
-	let regEmail = /^([A-Za-z0-9-.])+@([A-Za-z0-9-.])+.([A-Za-z]{2,4})$/;
-	var erreurL=document.getElementById("erreurL");//for login regex
-	erreurL.style.color ='red';
 
 	var username = document.getElementById('Username').value;
     var password = document.getElementById('password').value;
+
+	if (!regpassword.test(password)){
+		document.getElementById("logpass").innerHTML="Mot de passe incorrecte";
+    }
+    if(!reg.test(username)){
+		document.getElementById("logusername").innerHTML="Pseudo incorrecte";
+    }
+
     if(reg.test(username) && regpassword.test(password)){
     			var xhr = new XMLHttpRequest();
 
@@ -290,29 +330,12 @@ function switchToScreenGame()
             	xhr.onreadystatechange = function() {
                 	if (xhr.readyState == 4 && xhr.status == 200) {   
                 		ech = xhr.responseXML;
-                		responseTraitementAuthentication(ech);
-                		var connected= ech.getElementsByTagName("bool")[0].firstChild.nodeValue; 
-                   		if (connected=="true") {
-							screenGame.style.display='flex';
-							login.style.display='none';
-							register.style.display='none';
-							XhrRequestToMovingPhp("-1"); 
-                   		}              		
+                		responseTraitementAuthentication(ech);            		
                		 }
             	}
-
 	            xhr.open("POST","login.php");
 	            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	            xhr.send(param);	
-    }
-    else if(!reg.test(username) && !regpassword.test(password)){
-        erreurL.innerHTML="Erreur dans le pseudo et le mot de passe";
-    }
-    else if (!regpassword.test(password)){
-        erreurL.innerHTML="mot de passe incorrecte";
-    }
-    else{
-        erreurL.innerHTML="pseudo incorrecte";
     }
 
 }
@@ -432,8 +455,10 @@ function loadImage(nom)
 			{
 				barre.style.width="0";
 				barreDeCharment.style.display="none";
-				XhrRequestToMovingPhp(-1);
-				loadInProgress=true;
+				if(startScript==false){
+					XhrRequestToMovingPhp(-1);
+					loadInProgress=true;
+				}				
 				barre.style.width="0";
 				barreDeCharment.style.display="none";
 			}	
@@ -444,8 +469,11 @@ function loadImage(nom)
 //Fonction pour ajouter un membre a la base de donnees
 function registreMember()
 {
-	var erreurR=document.getElementById("erreurR"); //for register regex
-	erreurR.style.color ='red';
+	//Faire disparaitre les messages d'erreurs
+	var todosSpan= document.getElementsByClassName("messageError");
+	for (let index = 0; index < todosSpan.length; index++) {
+		todosSpan[index].innerHTML="";	
+	}
 
 	let reg = /^([A-z&1-9]{5})\w+/;
 	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
@@ -455,45 +483,35 @@ function registreMember()
     var email = document.getElementById('email').value;
     var password = document.getElementById('passwordR').value;
     var Comfirm_psw = document.getElementById('Comfirm_psw').value;
-    if(reg.test(username) && regpassword.test(password) && regEmail.test(email)){
-    		if (password==Comfirm_psw) {
-    			var xhr = new XMLHttpRequest();
 
-            	var param = "pseudo="+encodeURIComponent(username)+"&password="+encodeURIComponent(password)+"&email="+encodeURIComponent(email);
-            	xhr.onreadystatechange = function() {
-                	if (xhr.readyState == 4 && xhr.status == 200) {    
-                   		ech = xhr.responseXML;
-                   		responseTraitementAuthentication(ech);
-                   		var connected= ech.getElementsByTagName("bool")[0].firstChild.nodeValue;
-                   		if (connected =="true") {
-                   			register.style.display='none';
-                   			login.style.display='block'; 
-                   		}
-               		 }
+	if(!reg.test(username)){
+
+        document.getElementById("registerusername").innerHTML="Pseudo invalide";
+    }
+    if (!regpassword.test(password)){
+        document.getElementById("registerpass").innerHTML="Mot de passe invalide. (Min 8 lettres avec majuscules,caractere speciaux et chiffres)";
+    }
+    if (!regEmail.test(email)){
+        document.getElementById("registermail").innerHTML="Mail invalide";
+    }   
+    if(password!=Comfirm_psw){
+        document.getElementById("registerpassconfirm").innerHTML="Les mot de passe ne corresponde pas";
+    }
+
+    if(reg.test(username) && regpassword.test(password) && regEmail.test(email)){
+    		var xhr = new XMLHttpRequest();
+            var param = "pseudo="+encodeURIComponent(username)+"&password="+encodeURIComponent(password)+"&email="+encodeURIComponent(email);
+            xhr.onreadystatechange = function() {
+            	if (xhr.readyState == 4 && xhr.status == 200) {    
+               		ech = xhr.responseXML;
+               		responseTraitementAuthentication(ech);
             	}
-	            xhr.open("POST","login.php");
-	            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); //Comment savoir que l'on doit mettre ceci ?
-	            xhr.send(param);
-    			}
-    			else if (password!=Comfirm_psw){
-        			erreurR.innerHTML="veillez saisir une meme version de mot de passe";
-    			}
+            }
+	        xhr.open("POST","login.php");
+	        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	        xhr.send(param);
     }
 	
-    else if(!reg.test(username) && !regpassword.test(password)){
-
-        erreurR.innerHTML="Erreur dans le pseudo et le mot de passe";
-    }
-    else if (!regpassword.test(password)){
-        erreurR.innerHTML="Erreur dans le mot de passe. min 8 lettres avec majuscules,caractere speciaux et chiffres";
-    }
-    else if (!regEmail.test(email)){
-        erreurR.innerHTML="Erreur dans l email";
-    }
-    
-    else{
-        erreurR.innerHTML="Erreur dans le pseudo";
-    }
 }
 
 
@@ -513,5 +531,6 @@ function init()
 
 	var confirme=document.getElementById("confirme");//register
 	confirme.onclick=registreMember;
+
 }
 window.onload=init;

@@ -123,9 +123,14 @@ h3{
 }
 #divForBoussole{
   width: auto;
-  text-align: right;
+  text-align: center;
   flex: auto;
   height: 100%;
+}
+.messageError{
+  size: 2px;
+  color: red;
+  font-weight: bold;
 }
 
 

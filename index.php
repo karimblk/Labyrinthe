@@ -24,22 +24,25 @@ session_start();
     <h2>Register</h2>
       <form>
         <div class="user-box">
-            <input type="text" name="" required="" id="UsernameR" />
+            <input type="text" name="" required="Champ obligatoire" id="UsernameR" />
             <label>Username</label>
         </div>
+        <span class="messageError" id="registerusername"></span>
         <div class="user-box">
-            <input type="text" name="" required=""  id="email" />
+            <input type="text" name="" required="Champ obligatoire"  id="email" />
             <label>Email</label>
         </div>
+        <span class="messageError" id="registermail"></span>
         <div class="user-box">
-            <input type="password" name="" required="" id="passwordR" />
+            <input type="password" name="" required="Champ obligatoire" id="passwordR" />
             <label>Password</label>
         </div>
+        <span class="messageError" id="registerpass"></span>
         <div class="user-box">
-            <input type="password" name="" required="" id="Comfirm_psw" />
-            <label>Comfirme password</label>
+            <input type="password" name="" required="Champ obligatoire" id="Comfirm_psw" />
+            <label>Comfirm password</label>
         </div>
-        <div id="erreurR"   class="user-box"></div>
+        <span class="messageError" id="registerpassconfirm"></span>
         <a href="#" id="confirme">
           <span></span>
           <span></span>
@@ -57,13 +60,14 @@ session_start();
             <input type="text" name="" required="" id="Username" />
             <label>Username</label>
         </div>
+        <span class="messageError" id="logusername"></span>
         <div class="user-box">
             <input type="password" name="" required="" id ="password" />
             <label>Password</label>
         </div>
+        <span class="messageError" id="logpass"></span>
         <a href="#" id="btnScreenGame">Submit</a>
         <a href="#" id="btnRegister">Register</a>
-        <div id="erreurL"  class="user-box"></div>
       </form>
   </div>
 	<div id="gamescreen" class="container">
