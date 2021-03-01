@@ -72,11 +72,11 @@
 				else
 				{
 					genererXML("2000","Ok");
-					$stm=$db->prepare("INSERT INTO players (login,passwd,email) VALUES (?,?,?)");
+					$stm=$db->prepare("INSERT INTO players (login,passwd,email,x,y,z) VALUES (?,?,?,?,?,?)");
 	        		$stm->execute(array(
 	           		$_POST["pseudo"],
 	            	hash("sha256",$_POST["password"],false),
-	            	$_POST['email']
+	            	$_POST['email'],1,1,1
 	       			));
 				}
 			}   
@@ -109,7 +109,11 @@
 				$users = $stmt->fetch();
 				if($users)
 				{
-					genererXML("2001", $user);
+					$stmt = $db->prepare("SELECT pid FROM players WHERE login=?");
+					$stmt->execute([$user]); 
+					$resultat= $stmt->fetch();	
+					$_SESSION["pid"]=$resultat[0];
+					genererXML("2001", $_SESSION["pid"]);
 				}else {
 					genererXML("2005","Mot de passe incorrect");
 				}

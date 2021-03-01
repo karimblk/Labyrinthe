@@ -120,6 +120,7 @@ function upgradePosition()
 				else if($laby[$z][$y+1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;
+
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -639,19 +640,29 @@ function portionnerLetableau()
 	}
 }
 
+function UpdatePositionInDataBase(){
+	global $x,$y,$z;
+	// On met les nouvelles positions dans la base de donnees
+	$db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2033;user=ajax2033;password=deboi71koigrou');	
+
+	$stm= $db->prepare ("UPDATE players SET x=?, y=?, z=? WHERE pid=?");	
+	$stm->execute(array(
+		$x,
+	    $y,
+	    $z,
+		$_SESSION["pid"]
+	    ));	
+}
+
 // Etape 4: Traitement de la requete et envoie de la reponse
 
 if($btnAppuye!=-1) // Si = -1 on le met en position initial (1;1) Direction Sud
 {
 	upgradePosition();
 }
-else{
-	$y=1;
-	$x=1;
-	$_SESSION['orientation']=1;
-}
 
 if($deplacementPossible==true){
+	UpdatePositionInDataBase();
 	portionnerLetableau();
 	if($changementEtage==true)
 	{
@@ -675,6 +686,8 @@ if($deplacementPossible==true){
 else{
 	genererXML($x,$y,$_SESSION['orientation'], "NOTCHANGE" , "ERROR");
 }
+
+
 
 $_SESSION['positionX'] = $x;
 $_SESSION['positionY'] = $y;

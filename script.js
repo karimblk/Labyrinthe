@@ -268,7 +268,7 @@ function responseTraitementAuthentication(xmlResponse)
 		register.style.display='none';
         login.style.display='block'; 
 	}
-	else if(codeRecu=="2001")
+	else if(codeRecu=="2001") //Connexion reussie
 	{
 		screenGame.style.display='flex';
 		login.style.display='none';
