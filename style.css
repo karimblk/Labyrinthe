@@ -132,7 +132,15 @@ h3{
   color: red;
   font-weight: bold;
 }
-
+#allMessage{
+  height: 70%;
+}
+#formulaire{
+  height: auto;
+}
+.input-message::-webkit-input-placeholder {
+  color: red;
+}
 
 
 

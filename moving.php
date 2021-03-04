@@ -120,6 +120,12 @@ function upgradePosition()
 				else if($laby[$z][$y+1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 
 				}
 				else{// Mouvement impossible
@@ -135,6 +141,12 @@ function upgradePosition()
 				else if($laby[$z][$y-1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -149,6 +161,12 @@ function upgradePosition()
 				else if($laby[$z][$y][$x-1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -162,7 +180,13 @@ function upgradePosition()
 				}
 				else if($laby[$z][$y][$x+1]==4){ // On monte a l'etage superieur
 					$z++;
-					$changementEtage=true;			
+					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}		
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -181,6 +205,12 @@ function upgradePosition()
 				else if($laby[$z][$y-1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else
 				{// Mouvement impossible
@@ -195,7 +225,13 @@ function upgradePosition()
 				}
 				else if($laby[$z][$y+1][$x]==4){ // On monte a l'etage superieur
 					$z++;
-					$changementEtage=true;		
+					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}	
 				}
 				else
 				{// Mouvement impossible
@@ -211,6 +247,12 @@ function upgradePosition()
 				else if($laby[$z][$y][$x+1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -225,6 +267,12 @@ function upgradePosition()
 				else if($laby[$z][$y][$x-1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -241,6 +289,12 @@ function upgradePosition()
 				}else if($laby[$z][$y][$x+1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -254,6 +308,12 @@ function upgradePosition()
 				}else if($laby[$z][$y][$x-1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -267,6 +327,12 @@ function upgradePosition()
 				}else if($laby[$z][$y+1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false; 
@@ -280,6 +346,12 @@ function upgradePosition()
 				}else if($laby[$z][$y-1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -296,6 +368,12 @@ function upgradePosition()
 				}else if($laby[$z][$y][$x-1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -309,6 +387,12 @@ function upgradePosition()
 				}else if($laby[$z][$y][$x+1]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -322,6 +406,12 @@ function upgradePosition()
 				}else if($laby[$z][$y-1][$x]==4){ // On monte a l'etage superieur
 					$z++;
 					$changementEtage=true;	
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -334,7 +424,13 @@ function upgradePosition()
 					$y++;
 				}else if($laby[$z][$y+1][$x]==4){ // On monte a l'etage superieur
 					$z++;
-					$changementEtage=true;	
+					$changementEtage=true;
+					if($z==1){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==2){
+						$_SESSION['orientation']=4;
+					}	
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;

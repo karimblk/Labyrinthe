@@ -9,6 +9,7 @@ var responseXHR;
 var loadInProgress=true; // Pour la barre de chargement qui sera utiliser au chagement de theme
 var theme="BLUE";
 var startScript=true;
+//var tmr = setInterval(myTimer, 3000);
 
 /**********************
  * FONCTIONS
@@ -32,6 +33,29 @@ function sleep(miliseconds) {
 	while (currentTime + miliseconds >= new Date().getTime()) {
 	}
  }
+
+ //Foction qui traite le resultat obtenu par message.php
+ function traitementXhrMessage(response)
+ {
+	var taille = response.getElementsByTagName("AllMessage");
+	console.log(taille.length);
+ }
+
+ //Fonction pour le setInterval
+ function myTimer() {
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange= function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					var response = xhr.responseXML;
+					traitementXhrMessage(response);
+				}
+			}
+		};
+		xhr.open("GET","message.php");
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send();
+  }
 
 //Fonction qui dessine le canva
  function drawCanva(tableauCaseDevant)
@@ -251,6 +275,38 @@ function RequeteXhrForMoving()
 	
 }
 
+//Fonction pour envoyer un message a la database
+function RequeteXhrForMessage()
+{
+	var message= document.getElementById("message").value;
+	var typeMessage= document.getElementById("selectionTypeMessage").value;
+	if(message.length>=4)
+	{
+		var param="message="+encodeURIComponent(message)+"&typeMessage="+encodeURIComponent(typeMessage);
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange= function() {
+			if (xhr.readyState == 4) {
+				if (xhr.status == 200) {
+					document.getElementById("liveToast").classList.replace("bg-danger", "bg-success");
+					document.getElementById("liveToast").innerHTML='Message envoyer <i class="fas fa-check"></i>';
+					$('.toast').toast('show');
+					document.getElementById("message").value="";
+					//myTimer();
+				}
+			}
+		};
+		xhr.open("POST","message.php?");
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xhr.send(param);
+	}
+	else{
+		document.getElementById("liveToast").classList.replace("bg-success", "bg-danger");
+		document.getElementById("liveToast").innerHTML="Un minimum de 5 caracteres est requis";
+		$('.toast').toast('show');
+	}
+	
+}
+
 ////Fonction qui traite les reponse recu par login.php
 function responseTraitementAuthentication(xmlResponse)
 {
@@ -303,6 +359,9 @@ function switchToScreenGame()
 	for (var i = 0; i < imagesDeMouvement.length; i++) {
 		imagesDeMouvement[i].onclick=RequeteXhrForMoving;
 	}
+
+	//Rendre clickable le boutton d'envoie de message pour le chat
+	document.getElementById("btn-send-message").onclick=RequeteXhrForMessage;
 
 	//Faire disparaitre les messages d'erreurs
 	var todosSpan= document.getElementsByClassName("messageError");
@@ -517,6 +576,9 @@ function registreMember()
 
 function init()
 {
+
+	document.getElementById("Username").value="karimblk";
+	document.getElementById("password").value="Karim-860";
 	// Chargement images (MURS)
 	loadImage(theme);	
 

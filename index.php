@@ -8,6 +8,10 @@ session_start();
 	<title>Index</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://kit.fontawesome.com/9ccaea11f1.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div id="accueil">
@@ -100,9 +104,30 @@ session_start();
 	  
       <div id="divDuchat">  
         <h3>LIVE CHAT</h3> 
-		</div>
-    
+        <div id="allMessage">
+        </div>
+        
+        <div id="formulaire">
+            <input type="text" placeholder="Enter your message here" id="message" />
+            <select id="selectionTypeMessage">
+              <option value="0">SAY</option>
+              <option value="1">WHISPER</option>
+              <option value="2">HELL</option>
+            </select>
+            <button id="btn-send-message">Envoyer</button>            
+        </div>
+        <!-- TOAST -->
+        <div id="liveToast" class="toast hide text-white badge rounded-pill bg-success border-0" data-autohide="true" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+                <div class="toast-body">
+                  Message envoyer
+                  <i class="fas fa-check"></i>
+                </div>
+        </div>
+        <!---->
+		</div>   
 	</div>
+
+  
 
 	<!-- FOOTER -->
 	  <!-- Site footer -->
