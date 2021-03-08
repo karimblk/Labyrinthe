@@ -74,6 +74,7 @@ session_start();
         <a href="#" id="btnRegister">Register</a>
       </form>
   </div>
+
 	<div id="gamescreen" class="container">
       <div id="scrennGameWithButton">
         <canvas id="canvagamescreen" height="400" width="640"></canvas>
@@ -106,7 +107,7 @@ session_start();
         <h3 id="titrechat">LIVE CHAT</h3> 
         <div id="allMessage" class="list-group">
         </div>
-        
+
         <div id="formulaire">
             <input type="text" placeholder="Enter your message here" id="message" />
             <select id="selectionTypeMessage">
@@ -114,7 +115,12 @@ session_start();
               <option value="1">WHISPER</option>
               <option value="2">HELL</option>
             </select>
-            <button>😀</button>
+            <div class="btn-group dropup">
+                <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">😀</button>
+                <div class="dropdown-menu" id="emotic">
+                    <img src="Images/emoticons.jpg"/>
+                </div>
+            </div>
             <button id="btn-send-message">Envoyer</button> 
             
             
@@ -163,6 +169,8 @@ session_start();
       </div>
 	</footer>
 	
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 	<script src="script.js" defer></script>
 </body>
 </html>

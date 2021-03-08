@@ -16,6 +16,97 @@ var username;
  * FONCTIONS
  **********************/
 
+
+function findPos(el) {
+    var x = y = 0;
+    if(el.offsetParent) {
+        x = el.offsetLeft;
+        y = el.offsetTop;
+        while(el = el.offsetParent) {
+            x += el.offsetLeft;
+            y += el.offsetTop;
+        }
+    }
+    return {'x':x, 'y':y};
+}
+
+var diffx;
+	var diffy ;
+	mondiv = document.getElementById("emotic");
+	mondiv.onclick = function(e) {
+		var ev = e || window.event;
+		var pos = findPos(this);
+		diffx = ev.clientX - pos.x;
+		diffy = ev.clientY - pos.y+32;
+		emotic();
+	};
+
+function emotic ()
+{
+    if (diffy >0 && diffy<=48 ) {
+
+        if (diffx >0 && diffx<=38) {
+            document.getElementById("message").value+= ":-(";
+        }
+        if (diffx >38 && diffx<=76) {
+            document.getElementById("message").value+= ":-|";
+        }
+        if (diffx >76 && diffx<=114) {
+            document.getElementById("message").value+= "😊";
+        }
+        if (diffx >114 && diffx<=160) {
+            document.getElementById("message").value+= ":-D";
+        }
+    }
+    if (diffy >48 && diffy<=86 ) {
+
+        if (diffx >0 && diffx<=38) {
+            document.getElementById("message").value+= "X-D";
+        }
+        if (diffx >38 && diffx<=76) {
+            document.getElementById("message").value+= "X-(";
+        }
+        if (diffx >76 && diffx<=114) {
+            document.getElementById("message").value+= ":-P";
+        }
+        if (diffx >114 && diffx<=160) {
+            document.getElementById("message").value+= ":')";
+        }
+    }
+    if (diffy >86 && diffy<=124 ) {
+
+        if (diffx >0 && diffx<=38) {
+            document.getElementById("message").value+= "-'(";
+        }
+        if (diffx >38 && diffx<=76) {
+            document.getElementById("message").value+= ">-D";
+        }
+        if (diffx >76 && diffx<=114) {
+            document.getElementById("message").value+= ":-Z";
+        }
+        if (diffx >114 && diffx<=160) {
+            document.getElementById("message").value+= "8-X";
+        }
+    }
+    if (diffy >124 && diffy<=170 ) {
+        if (diffx >0 && diffx<=38) {
+            document.getElementById("message").value+= "#-|";
+        }
+        if (diffx >38 && diffx<=76) {
+            document.getElementById("message").value+= "|-(";
+        }
+        if (diffx >76 && diffx<=114) {
+            document.getElementById("message").value+= "|-P";
+        }
+        if (diffx >114 && diffx<=160) {
+            document.getElementById("message").value+= "8-|";
+        }
+    }
+
+}
+
+
+
 //Fonction pour initialiser le tableau qui contient les images
 function initArray(tab)
 {

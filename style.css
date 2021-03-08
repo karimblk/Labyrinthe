@@ -66,6 +66,7 @@ body{
   border: 4px solid #FFFFFF;
   border-radius: 15px;
   background-color: #FFFFFF;
+  z-index: 50;
 }
 #login{
 	display: none;
@@ -158,6 +159,9 @@ h3{
 footer{
   height: auto;
 }
+
+
+
 
 
 
