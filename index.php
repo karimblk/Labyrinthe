@@ -89,22 +89,22 @@ session_start();
 				<span id="spanPosition"></span>
 			</div>
 			<div id="divContainsButtonOfMovement" >
-				<img src="ImgMove/movefwd.png" id="imgDevant" class="ImgMove" />
-				<img src="ImgMove/moveback.png" id="imgArriere" class="ImgMove"/><br>
-				<img src="ImgMove/moveleft.png" id="imgGauche" class="ImgMove"/>
-				<img src="ImgMove/moveright.png" id="imgDroite" class="ImgMove"/><br>
-				<img src="ImgMove/turnleft.png" id="imgTournerGauche" class="ImgMove"/>
-				<img src="ImgMove/turnright.png" id="imgTournerDroite" class="ImgMove"/>
+				<img src="Images/movefwd.png" id="imgDevant" class="ImgMove" />
+				<img src="Images/moveback.png" id="imgArriere" class="ImgMove"/><br>
+				<img src="Images/moveleft.png" id="imgGauche" class="ImgMove"/>
+				<img src="Images/moveright.png" id="imgDroite" class="ImgMove"/><br>
+				<img src="Images/turnleft.png" id="imgTournerGauche" class="ImgMove"/>
+				<img src="Images/turnright.png" id="imgTournerDroite" class="ImgMove"/>
 			</div>
 			<div id="divForBoussole">
-				<img id="imgBoussole" src="ImgMove/compass-S.png"/>
+				<img id="imgBoussole" src="Images/compass-S.png"/>
 	  		</div>
 		</div>
       </div> 
 	  
       <div id="divDuchat">  
-        <h3>LIVE CHAT</h3> 
-        <div id="allMessage">
+        <h3 id="titrechat">LIVE CHAT</h3> 
+        <div id="allMessage" class="list-group">
         </div>
         
         <div id="formulaire">
@@ -114,18 +114,23 @@ session_start();
               <option value="1">WHISPER</option>
               <option value="2">HELL</option>
             </select>
-            <button id="btn-send-message">Envoyer</button>            
+            <button>😀</button>
+            <button id="btn-send-message">Envoyer</button> 
+            
+            
+            <!-- TOAST -->
+            <div id="liveToast" class="toast hide text-white badge rounded-pill bg-success border-0" data-autohide="true" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
+                    <div class="toast-body">
+                      Message envoyer
+                      <i class="fas fa-check"></i>
+                    </div>
+            </div>
+            <!---->
         </div>
-        <!-- TOAST -->
-        <div id="liveToast" class="toast hide text-white badge rounded-pill bg-success border-0" data-autohide="true" role="alert" aria-live="assertive" aria-atomic="true" data-delay="4000">
-                <div class="toast-body">
-                  Message envoyer
-                  <i class="fas fa-check"></i>
-                </div>
-        </div>
-        <!---->
 		</div>   
+    
 	</div>
+  <h3 id="errone">Navré le jeu n'est pas encore adapté a la taille de votre écran</h3>
 
   
 
@@ -138,9 +143,9 @@ session_start();
             <h6>About</h6>
             <p>This app was developed by : </p>
 			<ul class="footer-links">
-              <li><a href="ImgMove/karim.PNG">Karim Ben-Loukar</a></li>
+              <li><a href="Images/karim.PNG">Karim Ben-Loukar</a></li>
               <li><a href="https://media.discordapp.net/attachments/778278174454579254/808599662969880576/image0.jpg?width=1176&height=882">Taj Eddine Temsamani</a></li>
-			  <li><a href="ImgMove/souly.PNG">Soulyman El Kadaoui</a></li>
+			  <li><a href="Images/souly.PNG">Soulyman El Kadaoui</a></li>
             </ul>
           </div>
         </div>

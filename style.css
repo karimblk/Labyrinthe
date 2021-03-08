@@ -24,7 +24,7 @@ body{
   border: 4px solid #000000;
   border-radius: 4px;
   background-color: #AAF9FE;
-  height: auto;
+  /* height: auto; */
   width: auto;
   flex: 1;
 }
@@ -62,7 +62,7 @@ body{
 #gamescreen{
 	display: none;
   margin-top: 8px;
-  text-align: center;
+  margin-bottom: 50px;
   border: 4px solid #FFFFFF;
   border-radius: 15px;
   background-color: #FFFFFF;
@@ -132,14 +132,31 @@ h3{
   color: red;
   font-weight: bold;
 }
-#allMessage{
-  height: 70%;
+#titrechat{
+  height: auto;
 }
 #formulaire{
   height: auto;
+  position: static;
+  text-align: center;
 }
-.input-message::-webkit-input-placeholder {
-  color: red;
+
+#allMessage{
+  overflow: auto;
+  height: 370px;
+}
+#message{
+  width: 100%;
+}
+#errone{
+  display: none;
+  text-align: center;
+  height: 500px;
+  margin-top: 100px;
+  width: 100%;
+}
+footer{
+  height: auto;
 }
 
 

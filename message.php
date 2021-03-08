@@ -18,7 +18,7 @@ function genererXML($auteur,$message,$date,$type)
 	$chaineXML .= '</text>';
 
     $chaineXML .= '<date>';
-	$chaineXML .= $date;
+	$chaineXML .= date('H:i:s', $date); // Ou 'd-m-Y H:i:s' si on voulais une date complete
 	$chaineXML .= '</date>';
 
     $chaineXML .= '<type>';
@@ -48,35 +48,46 @@ if(isset($_POST["message"]) && isset($_POST["typeMessage"]))
     //Ajouter le message a la database
     $db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2033;user=ajax2033;password=deboi71koigrou');
     $stm=$db->prepare("INSERT INTO msg (msgfrom,msgtext,ts,msgtype) VALUES (?,?,?,?)");
-	$stm->execute(array(
-	    	$pid,
-	        $message,
+    $stm->execute(array(
+            $pid,
+            $message,
             time(),
-	        $type
-	));
+            $type
+    ));
 
     //On recupere l'id du message
     $stmt = $db->prepare("SELECT max(mid) FROM msg");
-	$stmt->execute(); 
-	$resultat= $stmt->fetch();	
-	$idMessage=$resultat[0];
+    $stmt->execute(); 
+    $resultat= $stmt->fetch();
+    $idMessage=$resultat[0];
+
+    //Recuperer les coordonne du joueur qui envoie
+    $stm=$db->prepare("SELECT x,y FROM players WHERE pid=?");
+    $stm->execute([$pid]);
+    $resultat= $stm->fetchall();
+    foreach ($resultat as $res) {
+        $posX=$res['x'];
+        $posY=$res['y'];
+    }
 
     //On regarde ici qui verra le message selon distance qui depend du type (crier, hurler, parler)
-    $stm=$db->prepare("SELECT pid FROM players WHERE z = ? AND  x + y BETWEEN 0 AND ?");
-	$stm->execute(array(
-	    	$_SESSION['Etage'],
-	        $distance
-	));
+    $stm=$db->prepare("SELECT pid FROM players WHERE z = 0 AND (x-?) + (y - ?) BETWEEN 0 AND ?");
+    $stm->execute(array(
+            $posX,
+            $posY,
+            $distance
+    ));
     $resultat= $stm->fetchall();
 
     //On ajoute a la table msgto les users qui verront le message
-    for ($i=0; $i < count($resultat) ; $i++) { 
+    foreach ($resultat as $res) {
         $stm=$db->prepare("INSERT INTO msgto (mid,msgto) VALUES (?,?)");
-	    $stm->execute(array(
-	    	$idMessage,
-            $resultat[$i]
+        $stm->execute(array(
+            $idMessage,
+            $res['pid']
         ));
     }
+    
     
 }
 else
@@ -84,26 +95,44 @@ else
     $db=new PDO('pgsql:host=localhost;port=5433;dbname=ajax2033;user=ajax2033;password=deboi71koigrou');  
     //On va faire une double requete
     //D'abord selectionner les mid qui concerne le joueur
-    //$stm=$db->prepare("SELECT DISTINCT(pseudo),msgtext,ts,msgtype FROM msg INNER JOIN msgto ON msg.mid = msgto.mid INNER JOIN players ON msg.msgfrom = players.pid WHERE msgto = ?");	    $stm=$db->prepare("SELECT mid FROM msgto WHERE msgto=?");
-    $stm->execute($_SESSION['pid']);
+    $stm=$db->prepare("SELECT mid FROM msgto WHERE msgto=?");
+    $stm->execute([$_SESSION['pid']]);
     $resultat= $stm->fetchall();
     //Mettre tout les mid dans une chaine de caractere pour avoir plus simple a la 2e requete sql
-    $resultEnChaine="";
-    $resultEnChaine.=$resultat[0];
-    for ($i=1; $i < count($resultat); $i++) { 
-        $resultEnChaine.=",";
-        $resultEnChaine.=$resultat[$i];       
+    if(count($resultat)!=0)
+    {
+        $arrayTest= array();
+        $cpt=0;
+        foreach ($resultat as $res) {
+            $arrayTest[$cpt]=$res['mid'];  
+            $cpt++;
+        }
+        //Ensuite faire une jointure pour prendre les colonnes qui nous interesse
+        $sql= "SELECT pid,login,msgtext,ts,msgtype FROM msg INNER JOIN players ON players.pid=msg.msgfrom WHERE mid in (" . implode(',', $arrayTest) . ")";
+        $stm=$db->prepare($sql);
+        $stm->execute();
+        $resultat= $stm->fetchall();
+        foreach ($resultat as $mess) {
+            if($mess["pid"]==$_SESSION['pid']){
+                genererXML($mess['pid'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
+            }
+            else{
+                genererXML($mess['login'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
+            }
+        }
+        //On peut supprimer les messages qui concerne le joueur car plus besoin
+        $stm=$db->prepare("DELETE FROM msgto WHERE msgto=?");
+        $stm->execute([$_SESSION['pid']]);
+
+        $chaineXML .= '</AllMessage>';
+        header("Content-Type: text/xml");
+        echo $chaineXML;
     }
-    //Ensuite faire une jointure pour prendre les colonnes qui nous interesse
-    $stm=$db->prepare("SELECT DISTINCT (pseudo,msgtext,ts,msgtype) FROM msg INNER JOIN players ON players.pid=msg.msgfrom WHERE mid in (".$resultEnChaine.")");
-    $stm->execute();
-    $resultat= $stm->fetchall();
-    foreach ($resultat as $mess) {
-        genererXML($mess['pseudo'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
+    else
+    {
+        exit();
     }
-    $chaineXML .= '</AllMessage>';
-    header("Content-Type: text/xml");
-    echo $chaineXML;
+    
 
 }
 

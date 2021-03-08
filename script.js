@@ -9,7 +9,8 @@ var responseXHR;
 var loadInProgress=true; // Pour la barre de chargement qui sera utiliser au chagement de theme
 var theme="BLUE";
 var startScript=true;
-//var tmr = setInterval(myTimer, 3000);
+var username;
+
 
 /**********************
  * FONCTIONS
@@ -37,8 +38,58 @@ function sleep(miliseconds) {
  //Foction qui traite le resultat obtenu par message.php
  function traitementXhrMessage(response)
  {
-	var taille = response.getElementsByTagName("AllMessage");
-	console.log(taille.length);
+	if(response!=null)
+	{
+		var bigdiv= document.getElementById("allMessage");
+		var msgs=response.getElementsByTagName("message");
+		for (let i = 0; i < msgs.length; i++) {
+			/////Recuperation des infos
+			var auteur = msgs[i].children[0].firstChild.nodeValue;
+			var message = msgs[i].children[1].firstChild.nodeValue;
+			var date = msgs[i].children[2].firstChild.nodeValue;
+			var type = msgs[i].children[3].firstChild.nodeValue;
+			var intonation;
+			switch(type)
+			{
+				case "0": intonation=" \"say\" ";
+				break;
+				case "1": intonation=" \"whisper\" ";
+				break;
+				case "2": intonation=" \"hell\" ";
+				break;
+			}
+			//////Affichage des infos
+			if(auteur==username)//Si le msg est de l'utilisateur en cours
+			{auteur="You ";}
+			// Creation de nouveau elements
+			var balA = document.createElement("a");
+			var balDiv = document.createElement("div");
+			var balAuteur = document.createElement("h6");
+			var balDate = document.createElement("small");
+			var balMessage = document.createElement("small");
+			// Ajout des class et des texte pour ces elements
+			balA.classList.add("list-group-item");
+			balA.classList.add("list-group-item-action");
+			balDiv.classList.add("d-flex");
+			balDiv.classList.add("w-100");
+			balDiv.classList.add("justify-content-between");
+			balAuteur.classList.add("mb-1");
+			var contenuForBalAuteur= document.createTextNode(auteur+intonation);
+			var contenuForBalDate= document.createTextNode("at "+date);
+			var contenuForBalMessage= document.createTextNode(message);
+			//Inserer les elements
+			balAuteur.appendChild(contenuForBalAuteur);
+			balDate.appendChild(contenuForBalDate);
+			balMessage.appendChild(contenuForBalMessage);
+			balDiv.appendChild(balAuteur);
+			balDiv.appendChild(balDate);
+			balA.appendChild(balDiv);
+			balA.appendChild(balMessage);
+			var lastMessage= bigdiv.children[0];
+			bigdiv.insertBefore(balA,lastMessage);
+		}
+	}
+
  }
 
  //Fonction pour le setInterval
@@ -191,13 +242,13 @@ function responseTraitement(xmlResponse)
 	position.innerHTML="("+ positionX+ ";"+positionY+")";
 	var direction =document.getElementById("imgBoussole");
 	switch(orientation){
-		case "1": direction.src="ImgMove/compass-S.png";
+		case "1": direction.src="Images/compass-S.png";
 		break;
-		case "2": direction.src="ImgMove/compass-N.png";
+		case "2": direction.src="Images/compass-N.png";
 		break;
-		case "3": direction.src="ImgMove/compass-W.png";
+		case "3": direction.src="Images/compass-W.png";
 		break;
-		case "4": direction.src="ImgMove/compass-E.png";
+		case "4": direction.src="Images/compass-E.png";
 		break;
 	}
 	
@@ -291,7 +342,6 @@ function RequeteXhrForMessage()
 					document.getElementById("liveToast").innerHTML='Message envoyer <i class="fas fa-check"></i>';
 					$('.toast').toast('show');
 					document.getElementById("message").value="";
-					//myTimer();
 				}
 			}
 		};
@@ -326,10 +376,22 @@ function responseTraitementAuthentication(xmlResponse)
 	}
 	else if(codeRecu=="2001") //Connexion reussie
 	{
-		screenGame.style.display='flex';
+		username=message;
+		// screenGame.style.display='flex';
 		login.style.display='none';
 		register.style.display='none';
 		XhrRequestToMovingPhp("-1"); 
+		//Check si l'ecran est assez grand ou pas
+		var x = window.matchMedia("(max-width: 990px)");
+		if (x.matches) { // If media query matches
+			document.getElementById("gamescreen").style.display="none";
+			document.getElementById("errone").style.display="block";
+		  }
+		  else
+		  {
+			document.getElementById("gamescreen").style.display="flex";
+			document.getElementById("errone").style.display="none";
+		  }
 	}
 	else if(codeRecu=="2002")
 	{
@@ -353,6 +415,20 @@ function responseTraitementAuthentication(xmlResponse)
 //Fonction qui switch vers l'ecran de jeu
 function switchToScreenGame()
 {
+	addEventListener("resize", function(){
+		var x = window.matchMedia("(max-width: 990px)");
+		if (x.matches) { // If media query matches
+			document.getElementById("gamescreen").style.display="none";
+			document.getElementById("errone").style.display="block";
+		  }
+		  else
+		  {
+			document.getElementById("gamescreen").style.display="flex";
+			document.getElementById("errone").style.display="none";
+		  }
+	});
+	
+
 
 	// Rendre clickable les images de mouvement
 	var imagesDeMouvement= document.getElementsByTagName("img");
@@ -368,6 +444,8 @@ function switchToScreenGame()
 	for (let index = 0; index < todosSpan.length; index++) {
 		todosSpan[index].innerHTML="";	
 	}
+	//Demarer la synchro du chat
+	var tmr = setInterval(myTimer, 3000);
 
 	let reg = /^([A-z&1-9]{5})\w+/;
 	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
