@@ -109,11 +109,21 @@
 				$users = $stmt->fetch();
 				if($users)
 				{
-					$stmt = $db->prepare("SELECT pid FROM players WHERE login=?");
+					$stmt = $db->prepare("SELECT pid,login FROM players WHERE login=?");
 					$stmt->execute([$user]); 
-					$resultat= $stmt->fetch();	
-					$_SESSION["pid"]=$resultat[0];
-					genererXML("2001", $_SESSION["pid"]);
+					$resultat= $stmt->fetchall();	
+					$pid=0;
+					$login="";
+					foreach($resultat as $res)
+					{
+						$pid=$res['pid'];
+						$login=$res['login'];
+					}
+					$_SESSION["pid"]=$pid;
+					//Effacer les messages de quand il etait pas la car inutile
+					$stm=$db->prepare("DELETE FROM msgto WHERE msgto=?");
+        			$stm->execute([$_SESSION['pid']]);
+					genererXML("2001", $login);
 				}else {
 					genererXML("2005","Mot de passe incorrect");
 				}

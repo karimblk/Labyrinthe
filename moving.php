@@ -128,11 +128,21 @@ function upgradePosition()
 					}
 
 				}
+				else if($laby[$z][$y+1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==2) //NORD
+			else if($_SESSION['orientation']==2) //NORD
 			{
 				if($laby[$z][$y-1][$x]==0)
 				{
@@ -148,11 +158,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y-1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==3) //OUEST
+			else if($_SESSION['orientation']==3) //OUEST
 			{
 				if($laby[$z][$y][$x-1]==0)
 				{
@@ -168,11 +188,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x-1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==4) //EST
+			else if($_SESSION['orientation']==4) //EST
 			{
 				if($laby[$z][$y][$x+1]==0)
 				{
@@ -187,6 +217,16 @@ function upgradePosition()
 					else if($z==2){
 						$_SESSION['orientation']=4;
 					}		
+				}
+				else if($laby[$z][$y][$x+1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -212,12 +252,22 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y-1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else
 				{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==2) //NORD
+			else if($_SESSION['orientation']==2) //NORD
 			{
 				if($laby[$z][$y+1][$x] ==0)
 				{
@@ -233,12 +283,22 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}	
 				}
+				else if($laby[$z][$y+1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else
 				{// Mouvement impossible
 					$deplacementPossible=false;}
 				
 			}
-			if($_SESSION['orientation']==3) //OUEST
+			else if($_SESSION['orientation']==3) //OUEST
 			{
 				if($laby[$z][$y][$x+1] ==0)
 				{
@@ -254,11 +314,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x+1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==4) //EST
+			else if($_SESSION['orientation']==4) //EST
 			{
 				if($laby[$z][$y][$x-1] ==0)
 				{
@@ -271,6 +341,16 @@ function upgradePosition()
 						$_SESSION['orientation']=3;
 					}
 					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
+				}
+				else if($laby[$z][$y][$x-1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
 						$_SESSION['orientation']=4;
 					}
 				}
@@ -296,11 +376,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x+1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==2) //NORD
+			else if($_SESSION['orientation']==2) //NORD
 			{
 			if($laby[$z][$y][$x-1] ==0)
 				{
@@ -315,11 +405,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x-1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==3) //OUEST
+			else if($_SESSION['orientation']==3) //OUEST
 			{
 			if($laby[$z][$y+1][$x] ==0)
 				{
@@ -334,11 +434,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y+1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false; 
 				}
 			}
-			if($_SESSION['orientation']==4) //EST
+			else if($_SESSION['orientation']==4) //EST
 			{
 				if($laby[$z][$y-1][$x] ==0)
 				{
@@ -350,6 +460,16 @@ function upgradePosition()
 						$_SESSION['orientation']=3;
 					}
 					else if($z==2){
+						$_SESSION['orientation']=4;
+					}
+				}
+				else if($laby[$z][$y-1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
 						$_SESSION['orientation']=4;
 					}
 				}
@@ -375,11 +495,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x-1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==2) //NORD
+			else if($_SESSION['orientation']==2) //NORD
 			{
 			if($laby[$z][$y][$x+1] ==0)
 				{
@@ -394,11 +524,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y][$x+1]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==3) //OUEST
+			else if($_SESSION['orientation']==3) //OUEST
 			{
 			if($laby[$z][$y-1][$x] ==0)
 				{
@@ -413,11 +553,21 @@ function upgradePosition()
 						$_SESSION['orientation']=4;
 					}
 				}
+				else if($laby[$z][$y-1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
+				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
 				}
 			}
-			if($_SESSION['orientation']==4) //EST
+			else if($_SESSION['orientation']==4) //EST
 			{
 				if($laby[$z][$y+1][$x] ==0)
 				{
@@ -431,6 +581,16 @@ function upgradePosition()
 					else if($z==2){
 						$_SESSION['orientation']=4;
 					}	
+				}
+				else if($laby[$z][$y+1][$x]==5){ // On descend a l'etage en bas
+					$z--;
+					$changementEtage=true;
+					if($z==0){
+						$_SESSION['orientation']=3;
+					}
+					else if($z==1){
+						$_SESSION['orientation']=4;
+					}
 				}
 				else{// Mouvement impossible
 					$deplacementPossible=false;
@@ -752,7 +912,7 @@ function UpdatePositionInDataBase(){
 
 // Etape 4: Traitement de la requete et envoie de la reponse
 
-if($btnAppuye!=-1) // Si = -1 on le met en position initial (1;1) Direction Sud
+if($btnAppuye!="-1") // Si = -1 on le met en position initial (1;1) Direction Sud
 {
 	upgradePosition();
 }

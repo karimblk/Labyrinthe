@@ -71,8 +71,9 @@ if(isset($_POST["message"]) && isset($_POST["typeMessage"]))
     }
 
     //On regarde ici qui verra le message selon distance qui depend du type (crier, hurler, parler)
-    $stm=$db->prepare("SELECT pid FROM players WHERE z = 0 AND (x-?) + (y - ?) BETWEEN 0 AND ?");
+    $stm=$db->prepare("SELECT pid FROM players WHERE z = ? AND (x-?) + (y - ?) BETWEEN 0 AND ?");
     $stm->execute(array(
+            $_SESSION["Etage"],
             $posX,
             $posY,
             $distance
@@ -113,12 +114,7 @@ else
         $stm->execute();
         $resultat= $stm->fetchall();
         foreach ($resultat as $mess) {
-            if($mess["pid"]==$_SESSION['pid']){
-                genererXML($mess['pid'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
-            }
-            else{
-                genererXML($mess['login'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
-            }
+            genererXML($mess['login'],$mess['msgtext'],$mess['ts'],$mess['msgtype']);
         }
         //On peut supprimer les messages qui concerne le joueur car plus besoin
         $stm=$db->prepare("DELETE FROM msgto WHERE msgto=?");

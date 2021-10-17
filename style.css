@@ -1,27 +1,49 @@
 body{
 	margin: 0px;
 	padding: 0px;
-	background-color: #4D4D4D;	
+  height: auto;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(40,40,138,1) 0%, rgba(0,212,255,1) 100%);
+	/* background-color: #4D4D4D;	  */
 	font-family: Comic Sans MS, Comic Sans, cursive;
 }
+
+#disconnect{
+  display: none;
+  text-align: right;
+}
+#disconnect :hover {
+  color: rgb(255, 255, 255);
+  text-decoration: underline;
+}
+
+
+#accueil{
+  margin-bottom: 150px;
+}
+
+#liveToast{
+  width: 100%;
+}
+
 .center{
 	text-align: center;
 }
 .blueBtn{
-	background-color: #03e9f4;
-	border-color: #03e9f4;
+	background-color: #28288a;
+	border-color: #28288a;
 }
 .blueTxt{
-	color: #03e9f4;
+	color: #28288a;
 }
 #canvagamescreen
 {
   margin-right: 0px;
   margin-left: 0px;
-  border-bottom: 4px solid #000000;
+  border-bottom: 4px solid #050568;
 }
 #divDuchat{
-  border: 4px solid #000000;
+  border: 4px solid #050568;
   border-radius: 4px;
   background-color: #AAF9FE;
   /* height: auto; */
@@ -33,12 +55,12 @@ body{
   flex: 1;
   width: 640px;
   padding-bottom: 5px;
-  border-bottom: 4px solid #000000;
-  border-top: 4px solid #000000;
-  border-left: 4px solid #000000;
+  border-bottom: 4px solid #050568;
+  border-top: 4px solid #050568;
+  border-left: 4px solid #050568;
   border-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
+  /* border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px; */
 }
 
 #bigTitle{
@@ -63,10 +85,7 @@ body{
 	display: none;
   margin-top: 8px;
   margin-bottom: 50px;
-  border: 4px solid #FFFFFF;
-  border-radius: 15px;
-  background-color: #FFFFFF;
-  z-index: 50;
+  background-color: transparent;
 }
 #login{
 	display: none;
@@ -83,7 +102,7 @@ h3{
 #barreChargement{
   text-align: center;
   height: 15px;
-  width: 90%;
+  width: 100%;
   background-color: #FFFFFF;
   border: 3px solid #000000;
   border-radius: 3px;
@@ -109,6 +128,7 @@ h3{
   width: 100%;
   height: auto;
   flex-direction: row;
+  
 }
 
 #divContainsButtonOfMovement{
@@ -120,6 +140,7 @@ h3{
 #infoPlayer{
   width: auto;
   flex: auto;
+  color: white;
   height: 100%;
 }
 #divForBoussole{
@@ -129,8 +150,10 @@ h3{
   height: 100%;
 }
 .messageError{
-  size: 2px;
+  font-size: small;
+  display: block;
   color: red;
+  margin-bottom: 8px;
   font-weight: bold;
 }
 #titrechat{
@@ -160,7 +183,16 @@ footer{
   height: auto;
 }
 
-
+#couverture{
+  position: absolute;
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(40,40,138,1) 0%, rgba(0,212,255,1) 100%);
+  display:none;
+  height: 100%; 
+  width: 100%;
+  top: 0px;
+  left: 0px;
+}
 
 
 
@@ -198,7 +230,7 @@ footer{
   padding: 10px 0;
   font-size: 16px;
   color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   border: none;
   border-bottom: 1px solid #fff;
   outline: none;
@@ -264,7 +296,7 @@ footer{
 
 .site-footer
 {
-  background-color:#26272b;
+  background-color:#26272b; 
   padding:45px 0 20px;
   font-size:15px;
   line-height:24px;

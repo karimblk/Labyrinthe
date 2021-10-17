@@ -6,15 +6,49 @@ tab=initArray(tab);
 var fontImage;
 var cptForbarreChargement=1;
 var responseXHR;
+var endload;  // CETTE VARIABLE CONTIENDRA UNE IMAGE QUI SERVIRA PAS MAIS JUSTE POUR DECLANCHER UNE FONCTION AU CHARGEMENT DE CETTE IMAGES 
 var loadInProgress=true; // Pour la barre de chargement qui sera utiliser au chagement de theme
 var theme="BLUE";
 var startScript=true;
 var username;
+var tabRecuEnGlobal;
 
 
 /**********************
  * FONCTIONS
  **********************/
+
+function disconnect()
+{
+	var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {   
+            var rep = xhr.responseText;       
+			if(rep=="1")
+			{
+				//Effacer les listener 
+				window.removeEventListener("resize", checkSizeOfScreen );
+				//Effacer tout les messages du chat
+				document.getElementById("allMessage").innerHTML="";
+				// Remettre les variables et les style comme si on venait d'entrer dans la page
+				startScript=true;
+				username="";
+				loadInProgress=true;
+				loadImage(theme);
+				var body = document.getElementsByTagName("body");
+				body[0].style.backgroundImage = 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(40,40,138,1) 0%, rgba(0,212,255,1) 100%)';
+				var acceuil=document.getElementById("accueil");
+				var screenGame=document.getElementById("gamescreen");
+				document.getElementById("errone").style.display="none";
+				acceuil.style.display='block';
+				screenGame.style.display='none';
+				document.getElementById("disconnect").style.display="none";
+			}   		
+        }
+    }
+	xhr.open("GET","logout.php");
+	xhr.send();	
+}
 
 
 function findPos(el) {
@@ -43,66 +77,66 @@ var diffx;
 
 function emotic ()
 {
-    if (diffy >0 && diffy<=48 ) {
-
-        if (diffx >0 && diffx<=38) {
-            document.getElementById("message").value+= ":-(";
-        }
-        if (diffx >38 && diffx<=76) {
-            document.getElementById("message").value+= ":-|";
-        }
-        if (diffx >76 && diffx<=114) {
-            document.getElementById("message").value+= "😊";
-        }
-        if (diffx >114 && diffx<=160) {
-            document.getElementById("message").value+= ":-D";
-        }
-    }
-    if (diffy >48 && diffy<=86 ) {
-
-        if (diffx >0 && diffx<=38) {
-            document.getElementById("message").value+= "X-D";
-        }
-        if (diffx >38 && diffx<=76) {
-            document.getElementById("message").value+= "X-(";
-        }
-        if (diffx >76 && diffx<=114) {
-            document.getElementById("message").value+= ":-P";
-        }
-        if (diffx >114 && diffx<=160) {
-            document.getElementById("message").value+= ":')";
-        }
-    }
-    if (diffy >86 && diffy<=124 ) {
-
-        if (diffx >0 && diffx<=38) {
-            document.getElementById("message").value+= "-'(";
-        }
-        if (diffx >38 && diffx<=76) {
-            document.getElementById("message").value+= ">-D";
-        }
-        if (diffx >76 && diffx<=114) {
-            document.getElementById("message").value+= ":-Z";
-        }
-        if (diffx >114 && diffx<=160) {
-            document.getElementById("message").value+= "8-X";
-        }
-    }
-    if (diffy >124 && diffy<=170 ) {
-        if (diffx >0 && diffx<=38) {
-            document.getElementById("message").value+= "#-|";
-        }
-        if (diffx >38 && diffx<=76) {
-            document.getElementById("message").value+= "|-(";
-        }
-        if (diffx >76 && diffx<=114) {
-            document.getElementById("message").value+= "|-P";
-        }
-        if (diffx >114 && diffx<=160) {
-            document.getElementById("message").value+= "8-|";
-        }
-    }
-
+	if (diffy >0 && diffy<=48 ) {
+	
+		if (diffx >0 && diffx<=38) {
+			document.getElementById("message").value+= "☹️";
+		}
+		if (diffx >38 && diffx<=76) {
+			document.getElementById("message").value+= "😑";
+		}
+		if (diffx >76 && diffx<=114) {
+			document.getElementById("message").value+= "😊";
+		}
+		if (diffx >114 && diffx<=160) {
+			document.getElementById("message").value+= "😀";
+		}
+	}
+	if (diffy >48 && diffy<=86 ) {
+	
+		if (diffx >0 && diffx<=38) {
+			document.getElementById("message").value+= "😆";
+		}
+		if (diffx >38 && diffx<=76) {
+			document.getElementById("message").value+= "😖";
+		}
+		if (diffx >76 && diffx<=114) {
+			document.getElementById("message").value+= "😋";
+		}
+		if (diffx >114 && diffx<=160) {
+			document.getElementById("message").value+= "😅";
+		}
+	}
+	if (diffy >86 && diffy<=124 ) {
+	
+		if (diffx >0 && diffx<=38) {
+			document.getElementById("message").value+= "😪";
+		}
+		if (diffx >38 && diffx<=76) {
+			document.getElementById("message").value+= "😁";
+		}
+		if (diffx >76 && diffx<=114) {
+			document.getElementById("message").value+= "😴";
+		}
+		if (diffx >114 && diffx<=160) {
+			document.getElementById("message").value+= "🤐";
+		}
+	}
+	if (diffy >124 && diffy<=170 ) {
+		if (diffx >0 && diffx<=38) {
+			document.getElementById("message").value+= "😐";
+		}
+		if (diffx >38 && diffx<=76) {
+			document.getElementById("message").value+= "☹️";
+		}
+		if (diffx >76 && diffx<=114) {
+			document.getElementById("message").value+= "😝";
+		}
+		if (diffx >114 && diffx<=160) {
+			document.getElementById("message").value+= "🥴";
+		}
+	}
+	
 }
 
 
@@ -131,6 +165,7 @@ function sleep(miliseconds) {
  {
 	if(response!=null)
 	{
+		console.log(response);
 		var bigdiv= document.getElementById("allMessage");
 		var msgs=response.getElementsByTagName("message");
 		for (let i = 0; i < msgs.length; i++) {
@@ -197,7 +232,20 @@ function sleep(miliseconds) {
 		xhr.open("GET","message.php");
 		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 		xhr.send();
-  }
+}
+
+function checkSizeOfScreen(){
+	var x = window.matchMedia("(max-width: 990px)");
+	if (x.matches) { // If media query matches
+		document.getElementById("gamescreen").style.display="none";
+		document.getElementById("errone").style.display="block";
+	  }
+	  else
+	  {
+		document.getElementById("gamescreen").style.display="flex";
+		document.getElementById("errone").style.display="none";
+	  }
+}
 
 //Fonction qui dessine le canva
  function drawCanva(tableauCaseDevant)
@@ -352,6 +400,7 @@ function responseTraitement(xmlResponse)
 		}
 	}
 	else{
+		tabRecuEnGlobal=TableauDeVue.split(" ");
 		loadInProgress=false;
 		loadImage(NouvelleEtage);
 	}
@@ -381,7 +430,6 @@ function XhrRequestToMovingPhp(valeur)
 //Fonction qui switch vers le login
 function switchToLogin()
 {
-	startScript=false;
 	var acceuil=document.getElementById("accueil");
 	var screenGame=document.getElementById("gamescreen");
 	var login=document.getElementById("login");
@@ -467,22 +515,31 @@ function responseTraitementAuthentication(xmlResponse)
 	}
 	else if(codeRecu=="2001") //Connexion reussie
 	{
+		startScript=false;
 		username=message;
-		// screenGame.style.display='flex';
 		login.style.display='none';
 		register.style.display='none';
 		XhrRequestToMovingPhp("-1"); 
+		//Faire patientez l'utilisateur pour afficher l'ecran de jeu
+		document.getElementById('staticBackdropLabel').innerHTML+=username;
+		var couverture =  document.getElementById('couverture');
+		couverture.style.display = "block";
+		setTimeout(function(){ document.getElementById('temps').innerHTML="4 secondes"; }, 1000);
+		setTimeout(function(){ document.getElementById('temps').innerHTML="3 secondes"; }, 2000);
+		setTimeout(function(){ document.getElementById('temps').innerHTML="2 secondes"; }, 3000);
+		setTimeout(function(){ document.getElementById('temps').innerHTML="1 seconde"; }, 4000);
+		setTimeout(function(){ document.getElementById('temps').innerHTML="0 seconde"; }, 5000);
+		document.getElementById('btn-display-popup').click();
+		setTimeout(function(){ document.getElementById('Understood').click();
+		document.getElementById('temps').innerHTML="5 secondes";
+		document.getElementById('staticBackdropLabel').innerHTML="Bienvenue à toi ";
+		couverture.style.display = "none"; }, 5000);
+
 		//Check si l'ecran est assez grand ou pas
-		var x = window.matchMedia("(max-width: 990px)");
-		if (x.matches) { // If media query matches
-			document.getElementById("gamescreen").style.display="none";
-			document.getElementById("errone").style.display="block";
-		  }
-		  else
-		  {
-			document.getElementById("gamescreen").style.display="flex";
-			document.getElementById("errone").style.display="none";
-		  }
+		checkSizeOfScreen();
+		//Rendre clickable le bouton de deconexion
+		document.getElementById("disconnect").style.display="block";
+		document.getElementById("disconnect").onclick=disconnect;
 	}
 	else if(codeRecu=="2002")
 	{
@@ -506,21 +563,8 @@ function responseTraitementAuthentication(xmlResponse)
 //Fonction qui switch vers l'ecran de jeu
 function switchToScreenGame()
 {
-	addEventListener("resize", function(){
-		var x = window.matchMedia("(max-width: 990px)");
-		if (x.matches) { // If media query matches
-			document.getElementById("gamescreen").style.display="none";
-			document.getElementById("errone").style.display="block";
-		  }
-		  else
-		  {
-			document.getElementById("gamescreen").style.display="flex";
-			document.getElementById("errone").style.display="none";
-		  }
-	});
+	window.addEventListener("resize", checkSizeOfScreen);
 	
-
-
 	// Rendre clickable les images de mouvement
 	var imagesDeMouvement= document.getElementsByTagName("img");
 	for (var i = 0; i < imagesDeMouvement.length; i++) {
@@ -538,6 +582,7 @@ function switchToScreenGame()
 	//Demarer la synchro du chat
 	var tmr = setInterval(myTimer, 3000);
 
+	//Verifier les infos saisies par l'utilisateur
 	let reg = /^([A-z&1-9]{5})\w+/;
 	let regpassword = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z]).{8,128}$/;
 
@@ -668,31 +713,43 @@ function loadImage(nom)
 					};
 					tab[i][l].src="Images/"+nom+"."+caseLetter+"S"+l+".png";
 				}	
-		}	
-		
-		
+		}			
 	}
-		fontImage=new Image();
-		fontImage.onload= function() 
-		{
-			barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
-			paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
-			barre.style.width="0";
-			barreDeCharment.style.display="none";
-			if(cptForbarreChargement==151)
+	fontImage=new Image();		
+	fontImage.onload= function() 
+	{
+		barre.style.width=(pourcentageImageCharge*cptForbarreChargement)+"%";
+		paraForLoadBarre.innerHTML=Math.round((pourcentageImageCharge*cptForbarreChargement))+"%";
+		barre.style.width="0";
+		barreDeCharment.style.display="none";
+		if(startScript==false){
+			drawCanva(tabRecuEnGlobal);
+			loadInProgress=true;
+			//Changer la couleur du body en fonction du theme
+			if(nom=="GREEN")
 			{
-				barre.style.width="0";
-				barreDeCharment.style.display="none";
-				if(startScript==false){
-					XhrRequestToMovingPhp(-1);
-					loadInProgress=true;
-				}				
-				barre.style.width="0";
-				barreDeCharment.style.display="none";
-			}	
-		};
-		fontImage.src="Images/"+nom+".BACK.png";	
+				var body = document.getElementsByTagName("body");
+				body[0].style.backgroundImage = 'linear-gradient(90deg, rgba(21,70,35,1) 0%, rgba(159,224,54,1) 100%)';
+			}
+			if(nom=="BLUE")
+			{
+				var body = document.getElementsByTagName("body");
+				body[0].style.backgroundImage = 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(40,40,138,1) 0%, rgba(0,212,255,1) 100%)';
+			}
+			if(nom=="BRICK")
+			{
+				var body = document.getElementsByTagName("body");
+				body[0].style.backgroundImage = 'linear-gradient(90deg, rgba(121,9,47,1) 35%, rgba(255,0,24,1) 100%)';
+			}
+
+		}				
+		barre.style.width="0";
+		barreDeCharment.style.display="none";
+				
+	};
+	fontImage.src="Images/"+nom+".BACK.png";
 }
+
 
 //Fonction pour ajouter un membre a la base de donnees
 function registreMember()
@@ -745,9 +802,6 @@ function registreMember()
 
 function init()
 {
-
-	document.getElementById("Username").value="karimblk";
-	document.getElementById("password").value="Karim-860";
 	// Chargement images (MURS)
 	loadImage(theme);	
 

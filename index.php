@@ -14,6 +14,7 @@ session_start();
   <script src="https://kit.fontawesome.com/9ccaea11f1.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <h6 id="disconnect" type="button">Log out</h6>
 	<div id="accueil">
 		<h1 id="bigTitle">Home page</h1>
 		<div class="jumbotron container text-center">
@@ -99,7 +100,7 @@ session_start();
 			</div>
 			<div id="divForBoussole">
 				<img id="imgBoussole" src="Images/compass-S.png"/>
-	  		</div>
+	  	</div>
 		</div>
       </div> 
 	  
@@ -138,7 +139,30 @@ session_start();
 	</div>
   <h3 id="errone">Navré le jeu n'est pas encore adapté a la taille de votre écran</h3>
 
-  
+  <!-- Popup qui s'affiche avant d'afficher l'ecran de jeu -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="btn-display-popup" style="display: none;">
+    </button>
+
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Bienvenue à toi </h5>
+          </div>
+          <div class="modal-body">
+            Chargement du jeu. <br> Patientez <span id="temps">5 secondes</span>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="Understood" style="display: none"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+        <!-- End  -->
+    <div id="couverture">
+
+    </div>
+
 
 	<!-- FOOTER -->
 	  <!-- Site footer -->
