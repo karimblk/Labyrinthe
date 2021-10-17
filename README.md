@@ -1,6 +1,9 @@
 # Labyrinthe
-A nous la réussite. Visca el barcaaa !!
+Projet fait pour le cours de technologie internet 1 en collaboration avec Soulyman El Kadaoui et Temsamani Taj
 
+
+
+############################################################################
 i[0] == A(S)
 i[1] == B(F)
 i[2] == B(S)
